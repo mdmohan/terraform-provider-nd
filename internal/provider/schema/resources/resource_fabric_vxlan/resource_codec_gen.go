@@ -1,11 +1,3 @@
-// Copyright (c) 2025 Cisco Systems, Inc. and its affiliates
-//
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at https://mozilla.org/MPL/2.0/.
-//
-// SPDX-License-Identifier: MPL-2.0
-
 // Code generated;  DO NOT EDIT.
 
 package resource_fabric_vxlan
@@ -32,10 +24,10 @@ type NDFCFabricVxlanModel struct {
 	Category                   string                             `json:"category,omitempty"`
 	Location                   NDFCLocationValue                  `json:"location,omitempty"`
 	AlertSuspend               string                             `json:"alertSuspend,omitempty"`
-	FeatureStatus              NDFCFeatureStatusValue             `json:"featureStatus,omitempty"`
+	ExternalStreamingSettings  NDFCExternalStreamingSettingsValue `json:"externalStreamingSettings,omitempty"`
 	Management                 NDFCManagementValue                `json:"management,omitempty"`
 	TelemetrySettings          NDFCTelemetrySettingsValue         `json:"telemetrySettings,omitempty"`
-	ExternalStreamingSettings  NDFCExternalStreamingSettingsValue `json:"externalStreamingSettings,omitempty"`
+	FeatureStatus              NDFCFeatureStatusValue             `json:"featureStatus,omitempty"`
 	Meta                       NDFCMetaValue                      `json:"meta,omitempty"`
 }
 
@@ -44,11 +36,56 @@ type NDFCLocationValue struct {
 	Longitude *float64 `json:"longitude,omitempty"`
 }
 
-type NDFCFeatureStatusValue struct {
-	ControllerStatus    string `json:"controller,omitempty"`
-	TelemetryStatus     string `json:"telemetry,omitempty"`
-	OrchestrationStatus string `json:"orchestration,omitempty"`
-	TrapForwarderStatus string `json:"trapForwarder,omitempty"`
+type NDFCExternalStreamingSettingsValue struct {
+	Email      NDFCEmailValues                          `json:"email,omitempty"`
+	MessageBus NDFCMessageBusValues                     `json:"messageBus,omitempty"`
+	Syslog     NDFCExternalStreamingSettingsSyslogValue `json:"syslog,omitempty"`
+}
+
+type NDFCEmailValues []NDFCEmailValue
+
+type NDFCEmailValue struct {
+	Name                      string                      `json:"name,omitempty"`
+	ReceiverEmail             string                      `json:"receiverEmail,omitempty"`
+	Format                    string                      `json:"format,omitempty"`
+	StartDate                 string                      `json:"startDate,omitempty"`
+	CollectionFrequencyInDays *int64                      `json:"collectionFrequencyInDays,omitempty"`
+	OnlyIncludeActiveAlerts   *bool                       `json:"onlyIncludeActiveAlerts,omitempty"`
+	CollectionSettings        NDFCCollectionSettingsValue `json:"collectionSettings,omitempty"`
+}
+
+type NDFCCollectionSettingsValue struct {
+	CollectionType            string   `json:"collectionType,omitempty"`
+	Anomalies                 []string `json:"anomalies,omitempty"`
+	Advisories                []string `json:"advisories,omitempty"`
+	RiskAndConformanceReports []string `json:"riskAndConformanceReports,omitempty"`
+}
+
+type NDFCMessageBusValues []NDFCMessageBusValue
+
+type NDFCMessageBusValue struct {
+	Server             string                                `json:"server,omitempty"`
+	CollectionType     string                                `json:"collectionType,omitempty"`
+	CollectionSettings NDFCMessageBusCollectionSettingsValue `json:"collectionSettings,omitempty"`
+}
+
+type NDFCMessageBusCollectionSettingsValue struct {
+	CollectionSettingsCollectionType string   `json:"collectionType,omitempty"`
+	Anomalies                        []string `json:"anomalies,omitempty"`
+	Advisories                       []string `json:"advisories,omitempty"`
+	Statistics                       []string `json:"statistics,omitempty"`
+	Faults                           []string `json:"faults,omitempty"`
+	AuditLogs                        []string `json:"auditLogs,omitempty"`
+}
+
+type NDFCExternalStreamingSettingsSyslogValue struct {
+	SyslogServers      []string                          `json:"servers,omitempty"`
+	SyslogFacility     string                            `json:"facility,omitempty"`
+	CollectionSettings NDFCSyslogCollectionSettingsValue `json:"collectionSettings,omitempty"`
+}
+
+type NDFCSyslogCollectionSettingsValue struct {
+	SyslogAnomalies []string `json:"anomalies,omitempty"`
 }
 
 type NDFCManagementValue struct {
@@ -480,7 +517,7 @@ type NDFCTelemetrySettingsMicroburstValue struct {
 }
 
 type NDFCTelemetrySettingsAnalysisSettingsValue struct {
-	AnalysisSettingsIsEnabled string `json:"analysisSettingsIsEnabled,omitempty"`
+	AnalysisSettingsIsEnabled *bool `json:"analysisSettingsIsEnabled,omitempty"`
 }
 
 type NDFCTelemetrySettingsNasValue struct {
@@ -497,56 +534,11 @@ type NDFCTelemetrySettingsEnergyManagementValue struct {
 	Cost *float64 `json:"cost,omitempty"`
 }
 
-type NDFCExternalStreamingSettingsValue struct {
-	Email      NDFCEmailValues                          `json:"email,omitempty"`
-	MessageBus NDFCMessageBusValues                     `json:"messageBus,omitempty"`
-	Syslog     NDFCExternalStreamingSettingsSyslogValue `json:"syslog,omitempty"`
-}
-
-type NDFCEmailValues []NDFCEmailValue
-
-type NDFCEmailValue struct {
-	Name                      string                           `json:"name,omitempty"`
-	ReceiverEmail             string                           `json:"receiverEmail,omitempty"`
-	Format                    string                           `json:"format,omitempty"`
-	StartDate                 string                           `json:"startDate,omitempty"`
-	CollectionFrequencyInDays *int64                           `json:"collectionFrequencyInDays,omitempty"`
-	OnlyIncludeActiveAlerts   *bool                            `json:"onlyIncludeActiveAlerts,omitempty"`
-	CollectionSettings        NDFCEmailCollectionSettingsValue `json:"collectionSettings,omitempty"`
-}
-
-type NDFCEmailCollectionSettingsValue struct {
-	CollectionType            string   `json:"collectionType,omitempty"`
-	Anomalies                 []string `json:"anomalies,omitempty"`
-	Advisories                []string `json:"advisories,omitempty"`
-	RiskAndConformanceReports []string `json:"riskAndConformanceReports,omitempty"`
-}
-
-type NDFCMessageBusValues []NDFCMessageBusValue
-
-type NDFCMessageBusValue struct {
-	Server             string                                `json:"server,omitempty"`
-	CollectionType     string                                `json:"collectionType,omitempty"`
-	CollectionSettings NDFCMessageBusCollectionSettingsValue `json:"collectionSettings,omitempty"`
-}
-
-type NDFCMessageBusCollectionSettingsValue struct {
-	CollectionSettingsCollectionType string   `json:"collectionType,omitempty"`
-	Anomalies                        []string `json:"anomalies,omitempty"`
-	Advisories                       []string `json:"advisories,omitempty"`
-	Statistics                       []string `json:"statistics,omitempty"`
-	Faults                           []string `json:"faults,omitempty"`
-	AuditLogs                        []string `json:"auditLogs,omitempty"`
-}
-
-type NDFCExternalStreamingSettingsSyslogValue struct {
-	SyslogServers      []string                          `json:"servers,omitempty"`
-	SyslogFacility     string                            `json:"facility,omitempty"`
-	CollectionSettings NDFCSyslogCollectionSettingsValue `json:"collectionSettings,omitempty"`
-}
-
-type NDFCSyslogCollectionSettingsValue struct {
-	SyslogAnomalies []string `json:"anomalies,omitempty"`
+type NDFCFeatureStatusValue struct {
+	ControllerStatus    string `json:"controller,omitempty"`
+	TelemetryStatus     string `json:"telemetry,omitempty"`
+	OrchestrationStatus string `json:"orchestration,omitempty"`
+	TrapForwarderStatus string `json:"trapForwarder,omitempty"`
 }
 
 type NDFCMetaValue struct {
@@ -636,11 +628,7 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 
 	if len(jsonData.Meta.AllowedActions) == 0 {
 		log.Printf("v.AllowedActions is empty")
-		v.AllowedActions, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.AllowedActions = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.Meta.AllowedActions))
 		for i, item := range jsonData.Meta.AllowedActions {
@@ -722,7 +710,9 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 		v.Category = types.StringNull()
 	}
 
-	// struct not implemented
+	v.Location.SetValue(&jsonData.Location)
+	v.Location.state = attr.ValueStateKnown
+
 	if jsonData.AlertSuspend != "" {
 		v.AlertSuspend = types.StringValue(jsonData.AlertSuspend)
 	} else {
@@ -2208,11 +2198,7 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 
 	if len(jsonData.Management.DnsCollection) == 0 {
 		log.Printf("v.DnsCollection is empty")
-		v.DnsCollection, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.DnsCollection = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.Management.DnsCollection))
 		for i, item := range jsonData.Management.DnsCollection {
@@ -2227,11 +2213,7 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 
 	if len(jsonData.Management.DnsVrfCollection) == 0 {
 		log.Printf("v.DnsVrfCollection is empty")
-		v.DnsVrfCollection, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.DnsVrfCollection = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.Management.DnsVrfCollection))
 		for i, item := range jsonData.Management.DnsVrfCollection {
@@ -2246,11 +2228,7 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 
 	if len(jsonData.Management.NtpServerCollection) == 0 {
 		log.Printf("v.NtpServerCollection is empty")
-		v.NtpServerCollection, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.NtpServerCollection = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.Management.NtpServerCollection))
 		for i, item := range jsonData.Management.NtpServerCollection {
@@ -2265,11 +2243,7 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 
 	if len(jsonData.Management.NtpServerVrfCollection) == 0 {
 		log.Printf("v.NtpServerVrfCollection is empty")
-		v.NtpServerVrfCollection, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.NtpServerVrfCollection = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.Management.NtpServerVrfCollection))
 		for i, item := range jsonData.Management.NtpServerVrfCollection {
@@ -2284,11 +2258,7 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 
 	if len(jsonData.Management.SyslogServerCollection) == 0 {
 		log.Printf("v.SyslogServerCollection is empty")
-		v.SyslogServerCollection, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.SyslogServerCollection = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.Management.SyslogServerCollection))
 		for i, item := range jsonData.Management.SyslogServerCollection {
@@ -2303,11 +2273,7 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 
 	if len(jsonData.Management.SyslogSeverityCollection) == 0 {
 		log.Printf("v.SyslogSeverityCollection is empty")
-		v.SyslogSeverityCollection, err = types.SetValue(types.Int64Type, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []int64 to  List %v", err)
-			return err
-		}
+		v.SyslogSeverityCollection = types.SetNull(types.Int64Type)
 	} else {
 		listData := make([]attr.Value, len(jsonData.Management.SyslogSeverityCollection))
 		for i, item := range jsonData.Management.SyslogSeverityCollection {
@@ -2322,11 +2288,7 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 
 	if len(jsonData.Management.SyslogServerVrfCollection) == 0 {
 		log.Printf("v.SyslogServerVrfCollection is empty")
-		v.SyslogServerVrfCollection, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.SyslogServerVrfCollection = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.Management.SyslogServerVrfCollection))
 		for i, item := range jsonData.Management.SyslogServerVrfCollection {
@@ -2575,9 +2537,8 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 		v.Sensitivity = types.StringNull()
 	}
 
-	if jsonData.TelemetrySettings.AnalysisSettings.AnalysisSettingsIsEnabled != "" {
-		x, _ := strconv.ParseBool(jsonData.TelemetrySettings.AnalysisSettings.AnalysisSettingsIsEnabled)
-		v.AnalysisSettingsIsEnabled = types.BoolValue(x)
+	if jsonData.TelemetrySettings.AnalysisSettings.AnalysisSettingsIsEnabled != nil {
+		v.AnalysisSettingsIsEnabled = types.BoolValue(*jsonData.TelemetrySettings.AnalysisSettings.AnalysisSettingsIsEnabled)
 
 	} else {
 		v.AnalysisSettingsIsEnabled = types.BoolNull()
@@ -2632,11 +2593,7 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 
 	if len(jsonData.ExternalStreamingSettings.Syslog.SyslogServers) == 0 {
 		log.Printf("v.SyslogServers is empty")
-		v.SyslogServers, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.SyslogServers = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.ExternalStreamingSettings.Syslog.SyslogServers))
 		for i, item := range jsonData.ExternalStreamingSettings.Syslog.SyslogServers {
@@ -2658,11 +2615,7 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 
 	if len(jsonData.ExternalStreamingSettings.Syslog.CollectionSettings.SyslogAnomalies) == 0 {
 		log.Printf("v.SyslogAnomalies is empty")
-		v.SyslogAnomalies, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.SyslogAnomalies = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.ExternalStreamingSettings.Syslog.CollectionSettings.SyslogAnomalies))
 		for i, item := range jsonData.ExternalStreamingSettings.Syslog.CollectionSettings.SyslogAnomalies {
@@ -2874,7 +2827,7 @@ func (v *VrfFlowRulesValue) SetValue(jsonData *NDFCVrfFlowRulesValue) diag.Diagn
 
 	if len(jsonData.VrfFlowRuleSubnets) == 0 {
 		log.Printf("v.VrfFlowRuleSubnets is empty")
-		v.VrfFlowRuleSubnets, err = types.SetValue(types.StringType, []attr.Value{})
+		v.VrfFlowRuleSubnets = types.SetNull(types.StringType)
 		if err != nil {
 			log.Printf("Error in converting []string to  List %v", err)
 			return err
@@ -3015,7 +2968,7 @@ func (v *InterfaceFlowRulesValue) SetValue(jsonData *NDFCInterfaceFlowRulesValue
 
 	if len(jsonData.InterfaceFlowRuleSubnets) == 0 {
 		log.Printf("v.InterfaceFlowRuleSubnets is empty")
-		v.InterfaceFlowRuleSubnets, err = types.SetValue(types.StringType, []attr.Value{})
+		v.InterfaceFlowRuleSubnets = types.SetNull(types.StringType)
 		if err != nil {
 			log.Printf("Error in converting []string to  List %v", err)
 			return err
@@ -3076,7 +3029,7 @@ func (v *InterfaceFlowRuleInterfaceCollectionValue) SetValue(jsonData *NDFCInter
 
 	if len(jsonData.InterfaceFlowRuleInterfaces) == 0 {
 		log.Printf("v.InterfaceFlowRuleInterfaces is empty")
-		v.InterfaceFlowRuleInterfaces, err = types.SetValue(types.StringType, []attr.Value{})
+		v.InterfaceFlowRuleInterfaces = types.SetNull(types.StringType)
 		if err != nil {
 			log.Printf("Error in converting []string to  List %v", err)
 			return err
@@ -3195,7 +3148,7 @@ func (v *L3OutFlowRulesValue) SetValue(jsonData *NDFCL3OutFlowRulesValue) diag.D
 
 	if len(jsonData.L3OutFlowRuleSubnets) == 0 {
 		log.Printf("v.L3OutFlowRuleSubnets is empty")
-		v.L3OutFlowRuleSubnets, err = types.SetValue(types.StringType, []attr.Value{})
+		v.L3OutFlowRuleSubnets = types.SetNull(types.StringType)
 		if err != nil {
 			log.Printf("Error in converting []string to  List %v", err)
 			return err
@@ -3252,7 +3205,7 @@ func (v *L3OutFlowRuleInterfaceCollectionValue) SetValue(jsonData *NDFCL3OutFlow
 
 	if len(jsonData.L3OutFlowRuleInterfaces) == 0 {
 		log.Printf("v.L3OutFlowRuleInterfaces is empty")
-		v.L3OutFlowRuleInterfaces, err = types.SetValue(types.StringType, []attr.Value{})
+		v.L3OutFlowRuleInterfaces = types.SetNull(types.StringType)
 		if err != nil {
 			log.Printf("Error in converting []string to  List %v", err)
 			return err
@@ -3335,7 +3288,7 @@ func (v *InterfaceRulesValue) SetValue(jsonData *NDFCInterfaceRulesValue) diag.D
 
 	if len(jsonData.InterfaceRuleSubnets) == 0 {
 		log.Printf("v.InterfaceRuleSubnets is empty")
-		v.InterfaceRuleSubnets, err = types.SetValue(types.StringType, []attr.Value{})
+		v.InterfaceRuleSubnets = types.SetNull(types.StringType)
 		if err != nil {
 			log.Printf("Error in converting []string to  List %v", err)
 			return err
@@ -3492,11 +3445,7 @@ func (v *EmailValue) SetValue(jsonData *NDFCEmailValue) diag.Diagnostics {
 
 	if len(jsonData.CollectionSettings.Anomalies) == 0 {
 		log.Printf("v.Anomalies is empty")
-		v.Anomalies, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.Anomalies = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.CollectionSettings.Anomalies))
 		for i, item := range jsonData.CollectionSettings.Anomalies {
@@ -3511,11 +3460,7 @@ func (v *EmailValue) SetValue(jsonData *NDFCEmailValue) diag.Diagnostics {
 
 	if len(jsonData.CollectionSettings.Advisories) == 0 {
 		log.Printf("v.Advisories is empty")
-		v.Advisories, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.Advisories = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.CollectionSettings.Advisories))
 		for i, item := range jsonData.CollectionSettings.Advisories {
@@ -3530,11 +3475,7 @@ func (v *EmailValue) SetValue(jsonData *NDFCEmailValue) diag.Diagnostics {
 
 	if len(jsonData.CollectionSettings.RiskAndConformanceReports) == 0 {
 		log.Printf("v.RiskAndConformanceReports is empty")
-		v.RiskAndConformanceReports, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.RiskAndConformanceReports = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.CollectionSettings.RiskAndConformanceReports))
 		for i, item := range jsonData.CollectionSettings.RiskAndConformanceReports {
@@ -3583,11 +3524,7 @@ func (v *MessageBusValue) SetValue(jsonData *NDFCMessageBusValue) diag.Diagnosti
 
 	if len(jsonData.CollectionSettings.Anomalies) == 0 {
 		log.Printf("v.Anomalies is empty")
-		v.Anomalies, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.Anomalies = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.CollectionSettings.Anomalies))
 		for i, item := range jsonData.CollectionSettings.Anomalies {
@@ -3602,11 +3539,7 @@ func (v *MessageBusValue) SetValue(jsonData *NDFCMessageBusValue) diag.Diagnosti
 
 	if len(jsonData.CollectionSettings.Advisories) == 0 {
 		log.Printf("v.Advisories is empty")
-		v.Advisories, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.Advisories = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.CollectionSettings.Advisories))
 		for i, item := range jsonData.CollectionSettings.Advisories {
@@ -3621,11 +3554,7 @@ func (v *MessageBusValue) SetValue(jsonData *NDFCMessageBusValue) diag.Diagnosti
 
 	if len(jsonData.CollectionSettings.Statistics) == 0 {
 		log.Printf("v.Statistics is empty")
-		v.Statistics, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.Statistics = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.CollectionSettings.Statistics))
 		for i, item := range jsonData.CollectionSettings.Statistics {
@@ -3640,11 +3569,7 @@ func (v *MessageBusValue) SetValue(jsonData *NDFCMessageBusValue) diag.Diagnosti
 
 	if len(jsonData.CollectionSettings.Faults) == 0 {
 		log.Printf("v.Faults is empty")
-		v.Faults, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.Faults = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.CollectionSettings.Faults))
 		for i, item := range jsonData.CollectionSettings.Faults {
@@ -3659,11 +3584,7 @@ func (v *MessageBusValue) SetValue(jsonData *NDFCMessageBusValue) diag.Diagnosti
 
 	if len(jsonData.CollectionSettings.AuditLogs) == 0 {
 		log.Printf("v.AuditLogs is empty")
-		v.AuditLogs, err = types.SetValue(types.StringType, []attr.Value{})
-		if err != nil {
-			log.Printf("Error in converting []string to  List %v", err)
-			return err
-		}
+		v.AuditLogs = types.SetNull(types.StringType)
 	} else {
 		listData := make([]attr.Value, len(jsonData.CollectionSettings.AuditLogs))
 		for i, item := range jsonData.CollectionSettings.AuditLogs {
@@ -4686,12 +4607,6 @@ func (v FabricVxlanModel) GetModelData() *NDFCFabricVxlanModel {
 		data.Management.NveLoopbackIpv6Range = ""
 	}
 
-	if !v.Ipv6AnycastRendezvousPointIpRange.IsNull() && !v.Ipv6AnycastRendezvousPointIpRange.IsUnknown() {
-		data.Management.Ipv6AnycastRendezvousPointIpRange = v.Ipv6AnycastRendezvousPointIpRange.ValueString()
-	} else {
-		data.Management.Ipv6AnycastRendezvousPointIpRange = ""
-	}
-
 	if !v.ExtraConfigAaa.IsNull() && !v.ExtraConfigAaa.IsUnknown() {
 		data.Management.ExtraConfigAaa = v.ExtraConfigAaa.ValueString()
 	} else {
@@ -5408,9 +5323,10 @@ func (v FabricVxlanModel) GetModelData() *NDFCFabricVxlanModel {
 	}
 
 	if !v.AnalysisSettingsIsEnabled.IsNull() && !v.AnalysisSettingsIsEnabled.IsUnknown() {
-		data.TelemetrySettings.AnalysisSettings.AnalysisSettingsIsEnabled = strconv.FormatBool(v.AnalysisSettingsIsEnabled.ValueBool())
+		data.TelemetrySettings.AnalysisSettings.AnalysisSettingsIsEnabled = new(bool)
+		*data.TelemetrySettings.AnalysisSettings.AnalysisSettingsIsEnabled = v.AnalysisSettingsIsEnabled.ValueBool()
 	} else {
-		data.TelemetrySettings.AnalysisSettings.AnalysisSettingsIsEnabled = ""
+		data.TelemetrySettings.AnalysisSettings.AnalysisSettingsIsEnabled = nil
 	}
 
 	if !v.Server.IsNull() && !v.Server.IsUnknown() {

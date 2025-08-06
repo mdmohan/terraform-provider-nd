@@ -1,18 +1,10 @@
-// Copyright (c) 2025 Cisco Systems, Inc. and its affiliates
-//
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at https://mozilla.org/MPL/2.0/.
-//
-// SPDX-License-Identifier: MPL-2.0
-
 // Code generated;  DO NOT EDIT.
 
 package provider
 
 import (
 	"strconv"
-	"terraform-provider-nd/internal/provider/resources/resource_fabric_vxlan"
+	"terraform-provider-nd/internal/provider/schema/resources/resource_fabric_vxlan"
 
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -26,43 +18,27 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.LicenseTier != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("license_tier").String(), c.LicenseTier))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("license_tier").String(), "premier"))
 	}
 	if c.FeatureStatus.ControllerStatus != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("controller_status").String(), c.FeatureStatus.ControllerStatus))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("controller_status").String(), "enabled"))
 	}
 	if c.FeatureStatus.TelemetryStatus != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("telemetry_status").String(), c.FeatureStatus.TelemetryStatus))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("telemetry_status").String(), "enabled"))
 	}
 	if c.FeatureStatus.OrchestrationStatus != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("orchestration_status").String(), c.FeatureStatus.OrchestrationStatus))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("orchestration_status").String(), "enabled"))
 	}
 	if c.FeatureStatus.TrapForwarderStatus != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("trap_forwarder_status").String(), c.FeatureStatus.TrapForwarderStatus))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("trap_forwarder_status").String(), "enabled"))
 	}
 	if c.TelemetryCollection != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("telemetry_collection").String(), strconv.FormatBool(*c.TelemetryCollection)))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("telemetry_collection").String(), "false"))
 	}
 	if c.TelemetryCollectionType != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("telemetry_collection_type").String(), c.TelemetryCollectionType))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("telemetry_collection_type").String(), "outOfBand"))
 	}
 	if c.TelemetryStreamingProtocol != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("telemetry_streaming_protocol").String(), c.TelemetryStreamingProtocol))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("telemetry_streaming_protocol").String(), "ipv4"))
 	}
 	if c.TelemetrySourceInterface != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("telemetry_source_interface").String(), c.TelemetrySourceInterface))
@@ -83,8 +59,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.TargetSubnetMask != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("target_subnet_mask").String(), strconv.Itoa(int(*c.Management.TargetSubnetMask))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("target_subnet_mask").String(), "30"))
 	}
 	if c.Management.AnycastGatewayMac != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("anycast_gateway_mac").String(), c.Management.AnycastGatewayMac))
@@ -234,7 +208,7 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	if c.NxapiHttp != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("nxapi_http").String(), strconv.FormatBool(*c.NxapiHttp)))
 	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("nxapi_http").String(), "false"))
+		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("nxapi_http").String(), "true"))
 	}
 	if c.Management.NxapiHttpPort != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("nxapi_http_port").String(), strconv.Itoa(int(*c.Management.NxapiHttpPort))))
@@ -268,8 +242,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.InterfaceStatisticsLoadInterval != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("interface_statistics_load_interval").String(), strconv.Itoa(int(*c.Management.InterfaceStatisticsLoadInterval))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("interface_statistics_load_interval").String(), "10"))
 	}
 	if c.Management.BgpLoopbackIpRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("bgp_loopback_ip_range").String(), c.Management.BgpLoopbackIpRange))
@@ -283,13 +255,9 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.AnycastRendezvousPointIpRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("anycast_rendezvous_point_ip_range").String(), c.Management.AnycastRendezvousPointIpRange))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("anycast_rendezvous_point_ip_range").String(), "10.254.254.0/24"))
 	}
 	if c.Management.IntraFabricSubnetRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("intra_fabric_subnet_range").String(), c.Management.IntraFabricSubnetRange))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("intra_fabric_subnet_range").String(), "10.4.0.0/16"))
 	}
 	if c.Management.L2VniRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("l2_vni_range").String(), c.Management.L2VniRange))
@@ -343,8 +311,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.PerVrfLoopbackIpRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("per_vrf_loopback_ip_range").String(), c.Management.PerVrfLoopbackIpRange))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("per_vrf_loopback_ip_range").String(), "10.5.0.0/22"))
 	}
 	if c.PerVrfLoopbackAutoProvisionIpv6 != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("per_vrf_loopback_auto_provision_ipv6").String(), strconv.FormatBool(*c.PerVrfLoopbackAutoProvisionIpv6)))
@@ -353,8 +319,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.PerVrfLoopbackIpv6Range != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("per_vrf_loopback_ipv6_range").String(), c.Management.PerVrfLoopbackIpv6Range))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("per_vrf_loopback_ipv6_range").String(), "fd00::a05:0/112"))
 	}
 	if c.Management.Banner != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("banner").String(), c.Management.Banner))
@@ -371,8 +335,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.DhcpProtocolVersion != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("dhcp_protocol_version").String(), c.Management.DhcpProtocolVersion))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("dhcp_protocol_version").String(), "dhcpv4"))
 	}
 	if c.Management.DhcpStartAddress != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("dhcp_start_address").String(), c.Management.DhcpStartAddress))
@@ -385,13 +347,9 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.ManagementIpv4Prefix != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("management_ipv4_prefix").String(), strconv.Itoa(int(*c.Management.ManagementIpv4Prefix))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("management_ipv4_prefix").String(), "24"))
 	}
 	if c.Management.ManagementIpv6Prefix != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("management_ipv6_prefix").String(), strconv.Itoa(int(*c.Management.ManagementIpv6Prefix))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("management_ipv6_prefix").String(), "64"))
 	}
 	if c.Management.BootstrapMultiSubnet != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("bootstrap_multi_subnet").String(), c.Management.BootstrapMultiSubnet))
@@ -407,7 +365,7 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	if c.ScheduledBackup != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("scheduled_backup").String(), strconv.FormatBool(*c.ScheduledBackup)))
 	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("scheduled_backup").String(), "true"))
+		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("scheduled_backup").String(), "false"))
 	}
 	if c.Management.ScheduledBackupTime != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("scheduled_backup_time").String(), c.Management.ScheduledBackupTime))
@@ -419,8 +377,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.Ipv6MulticastGroupSubnet != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ipv6_multicast_group_subnet").String(), c.Management.Ipv6MulticastGroupSubnet))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ipv6_multicast_group_subnet").String(), "ff1e::/121"))
 	}
 	if c.TenantRoutedMulticastIpv6 != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("tenant_routed_multicast_ipv6").String(), strconv.FormatBool(*c.TenantRoutedMulticastIpv6)))
@@ -429,8 +385,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.MvpnVrfRouteImportId != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("mvpn_vrf_route_import_id").String(), strconv.FormatBool(*c.MvpnVrfRouteImportId)))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("mvpn_vrf_route_import_id").String(), "true"))
 	}
 	if c.Management.MvpnVrfRouteImportIdRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("mvpn_vrf_route_import_id_range").String(), c.Management.MvpnVrfRouteImportIdRange))
@@ -442,13 +396,9 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.L3vniMulticastGroup != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("l3vni_multicast_group").String(), c.Management.L3vniMulticastGroup))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("l3vni_multicast_group").String(), "239.1.1.0"))
 	}
 	if c.Management.L3VniIpv6MulticastGroup != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("l3_vni_ipv6_multicast_group").String(), c.Management.L3VniIpv6MulticastGroup))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("l3_vni_ipv6_multicast_group").String(), "ff1e::"))
 	}
 	if c.Management.RendezvousPointMode != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("rendezvous_point_mode").String(), c.Management.RendezvousPointMode))
@@ -457,23 +407,15 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.PhantomRendezvousPointLoopbackId1 != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("phantom_rendezvous_point_loopback_id1").String(), strconv.Itoa(int(*c.Management.PhantomRendezvousPointLoopbackId1))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("phantom_rendezvous_point_loopback_id1").String(), "2"))
 	}
 	if c.Management.PhantomRendezvousPointLoopbackId2 != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("phantom_rendezvous_point_loopback_id2").String(), strconv.Itoa(int(*c.Management.PhantomRendezvousPointLoopbackId2))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("phantom_rendezvous_point_loopback_id2").String(), "3"))
 	}
 	if c.Management.PhantomRendezvousPointLoopbackId3 != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("phantom_rendezvous_point_loopback_id3").String(), strconv.Itoa(int(*c.Management.PhantomRendezvousPointLoopbackId3))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("phantom_rendezvous_point_loopback_id3").String(), "4"))
 	}
 	if c.Management.PhantomRendezvousPointLoopbackId4 != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("phantom_rendezvous_point_loopback_id4").String(), strconv.Itoa(int(*c.Management.PhantomRendezvousPointLoopbackId4))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("phantom_rendezvous_point_loopback_id4").String(), "5"))
 	}
 	if c.AdvertisePhysicalIpOnBorder != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("advertise_physical_ip_on_border").String(), strconv.FormatBool(*c.AdvertisePhysicalIpOnBorder)))
@@ -487,8 +429,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.SharedVpcDomainId != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("shared_vpc_domain_id").String(), strconv.Itoa(int(*c.Management.SharedVpcDomainId))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("shared_vpc_domain_id").String(), "1"))
 	}
 	if c.VpcLayer3PeerRouter != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("vpc_layer3_peer_router").String(), strconv.FormatBool(*c.VpcLayer3PeerRouter)))
@@ -507,8 +447,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.AnycastLoopbackId != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("anycast_loopback_id").String(), strconv.Itoa(int(*c.Management.AnycastLoopbackId))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("anycast_loopback_id").String(), "10"))
 	}
 	if c.BgpAuthentication != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("bgp_authentication").String(), strconv.FormatBool(*c.BgpAuthentication)))
@@ -548,42 +486,30 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.BfdAuthenticationKeyId != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("bfd_authentication_key_id").String(), strconv.Itoa(int(*c.Management.BfdAuthenticationKeyId))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("bfd_authentication_key_id").String(), "100"))
 	}
 	if c.Management.BfdAuthenticationKey != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("bfd_authentication_key").String(), c.Management.BfdAuthenticationKey))
 	}
 	if c.Macsec != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("macsec").String(), strconv.FormatBool(*c.Macsec)))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("macsec").String(), "false"))
 	}
 	if c.Management.MacsecCipherSuite != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("macsec_cipher_suite").String(), c.Management.MacsecCipherSuite))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("macsec_cipher_suite").String(), "GCM-AES-XPN-256"))
 	}
 	if c.Management.MacsecKeyString != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("macsec_key_string").String(), c.Management.MacsecKeyString))
 	}
 	if c.Management.MacsecAlgorithm != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("macsec_algorithm").String(), c.Management.MacsecAlgorithm))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("macsec_algorithm").String(), "AES_128_CMAC"))
 	}
 	if c.Management.MacsecFallbackKeyString != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("macsec_fallback_key_string").String(), c.Management.MacsecFallbackKeyString))
 	}
 	if c.Management.MacsecFallbackAlgorithm != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("macsec_fallback_algorithm").String(), c.Management.MacsecFallbackAlgorithm))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("macsec_fallback_algorithm").String(), "AES_128_CMAC"))
 	}
 	if c.Management.MacsecReportTimer != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("macsec_report_timer").String(), strconv.Itoa(int(*c.Management.MacsecReportTimer))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("macsec_report_timer").String(), "5"))
 	}
 	if c.Management.OverlayMode != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("overlay_mode").String(), c.Management.OverlayMode))
@@ -597,8 +523,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.DefaultPrivateVlanSecondaryNetworkTemplate != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("default_private_vlan_secondary_network_template").String(), c.Management.DefaultPrivateVlanSecondaryNetworkTemplate))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("default_private_vlan_secondary_network_template").String(), "Pvlan_Secondary_Network"))
 	}
 	if c.Management.PowerRedundancyMode != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("power_redundancy_mode").String(), c.Management.PowerRedundancyMode))
@@ -632,13 +556,9 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.NgoamSouthBoundLoopDetectProbeInterval != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ngoam_south_bound_loop_detect_probe_interval").String(), strconv.Itoa(int(*c.Management.NgoamSouthBoundLoopDetectProbeInterval))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ngoam_south_bound_loop_detect_probe_interval").String(), "300"))
 	}
 	if c.Management.NgoamSouthBoundLoopDetectRecoveryInterval != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ngoam_south_bound_loop_detect_recovery_interval").String(), strconv.Itoa(int(*c.Management.NgoamSouthBoundLoopDetectRecoveryInterval))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ngoam_south_bound_loop_detect_recovery_interval").String(), "600"))
 	}
 	if c.StrictConfigComplianceMode != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("strict_config_compliance_mode").String(), strconv.FormatBool(*c.StrictConfigComplianceMode)))
@@ -657,13 +577,9 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.PtpLoopbackId != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ptp_loopback_id").String(), strconv.Itoa(int(*c.Management.PtpLoopbackId))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ptp_loopback_id").String(), "0"))
 	}
 	if c.Management.PtpDomainId != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ptp_domain_id").String(), strconv.Itoa(int(*c.Management.PtpDomainId))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ptp_domain_id").String(), "0"))
 	}
 	if c.DefaultQueuingPolicy != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("default_queuing_policy").String(), strconv.FormatBool(*c.DefaultQueuingPolicy)))
@@ -697,8 +613,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.PriorityFlowControlWatchInterval != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("priority_flow_control_watch_interval").String(), strconv.Itoa(int(*c.Management.PriorityFlowControlWatchInterval))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("priority_flow_control_watch_interval").String(), "101"))
 	}
 	if c.StaticUnderlayIpAllocation != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("static_underlay_ip_allocation").String(), strconv.FormatBool(*c.StaticUnderlayIpAllocation)))
@@ -707,18 +621,12 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.BgpLoopbackIpv6Range != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("bgp_loopback_ipv6_range").String(), c.Management.BgpLoopbackIpv6Range))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("bgp_loopback_ipv6_range").String(), "fd00::a02:0/119"))
 	}
 	if c.Management.NveLoopbackIpv6Range != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("nve_loopback_ipv6_range").String(), c.Management.NveLoopbackIpv6Range))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("nve_loopback_ipv6_range").String(), "fd00::a03:0/118"))
 	}
 	if c.Management.Ipv6AnycastRendezvousPointIpRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ipv6_anycast_rendezvous_point_ip_range").String(), c.Management.Ipv6AnycastRendezvousPointIpRange))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ipv6_anycast_rendezvous_point_ip_range").String(), "fd00::254:254:0/118"))
 	}
 	if c.Management.ExtraConfigAaa != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("extra_config_aaa").String(), c.Management.ExtraConfigAaa))
@@ -765,8 +673,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.LeafTorVpcPortChannelIdRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("leaf_tor_vpc_port_channel_id_range").String(), c.Management.LeafTorVpcPortChannelIdRange))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("leaf_tor_vpc_port_channel_id_range").String(), "1-499"))
 	}
 	if c.Management.LinkStateRoutingTag != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("link_state_routing_tag").String(), c.Management.LinkStateRoutingTag))
@@ -785,8 +691,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.OspfAuthenticationKeyId != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ospf_authentication_key_id").String(), strconv.Itoa(int(*c.Management.OspfAuthenticationKeyId))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ospf_authentication_key_id").String(), "127"))
 	}
 	if c.Management.OspfAuthenticationKey != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ospf_authentication_key").String(), c.Management.OspfAuthenticationKey))
@@ -803,8 +707,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.IsisPointToPoint != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("isis_point_to_point").String(), strconv.FormatBool(*c.IsisPointToPoint)))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("isis_point_to_point").String(), "true"))
 	}
 	if c.IsisAuthentication != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("isis_authentication").String(), strconv.FormatBool(*c.IsisAuthentication)))
@@ -816,21 +718,15 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.IsisAuthenticationKeychainKeyId != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("isis_authentication_keychain_key_id").String(), strconv.Itoa(int(*c.Management.IsisAuthenticationKeychainKeyId))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("isis_authentication_keychain_key_id").String(), "127"))
 	}
 	if c.Management.IsisAuthenticationKey != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("isis_authentication_key").String(), c.Management.IsisAuthenticationKey))
 	}
 	if c.IsisOverload != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("isis_overload").String(), strconv.FormatBool(*c.IsisOverload)))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("isis_overload").String(), "true"))
 	}
 	if c.Management.IsisOverloadElapseTime != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("isis_overload_elapse_time").String(), strconv.Itoa(int(*c.Management.IsisOverloadElapseTime))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("isis_overload_elapse_time").String(), "60"))
 	}
 	if c.BfdOspf != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("bfd_ospf").String(), strconv.FormatBool(*c.BfdOspf)))
@@ -865,23 +761,15 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.SecurityGroupTagPrefix != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("security_group_tag_prefix").String(), c.Management.SecurityGroupTagPrefix))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("security_group_tag_prefix").String(), "SG_"))
 	}
 	if c.Management.SecurityGroupTagIdRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("security_group_tag_id_range").String(), c.Management.SecurityGroupTagIdRange))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("security_group_tag_id_range").String(), "10000-14000"))
 	}
 	if c.SecurityGroupTagPreprovision != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("security_group_tag_preprovision").String(), strconv.FormatBool(*c.SecurityGroupTagPreprovision)))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("security_group_tag_preprovision").String(), "false"))
 	}
 	if c.Management.SecurityGroupStatus != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("security_group_status").String(), c.Management.SecurityGroupStatus))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("security_group_status").String(), "disabled"))
 	}
 	if c.VrfLiteMacsec != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("vrf_lite_macsec").String(), strconv.FormatBool(*c.VrfLiteMacsec)))
@@ -890,29 +778,21 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.QuantumKeyDistribution != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("quantum_key_distribution").String(), strconv.FormatBool(*c.QuantumKeyDistribution)))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("quantum_key_distribution").String(), "false"))
 	}
 	if c.Management.VrfLiteMacsecCipherSuite != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("vrf_lite_macsec_cipher_suite").String(), c.Management.VrfLiteMacsecCipherSuite))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("vrf_lite_macsec_cipher_suite").String(), "GCM-AES-XPN-256"))
 	}
 	if c.Management.VrfLiteMacsecKeyString != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("vrf_lite_macsec_key_string").String(), c.Management.VrfLiteMacsecKeyString))
 	}
 	if c.Management.VrfLiteMacsecAlgorithm != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("vrf_lite_macsec_algorithm").String(), c.Management.VrfLiteMacsecAlgorithm))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("vrf_lite_macsec_algorithm").String(), "AES_128_CMAC"))
 	}
 	if c.Management.VrfLiteMacsecFallbackKeyString != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("vrf_lite_macsec_fallback_key_string").String(), c.Management.VrfLiteMacsecFallbackKeyString))
 	}
 	if c.Management.VrfLiteMacsecFallbackAlgorithm != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("vrf_lite_macsec_fallback_algorithm").String(), c.Management.VrfLiteMacsecFallbackAlgorithm))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("vrf_lite_macsec_fallback_algorithm").String(), "AES_128_CMAC"))
 	}
 	if c.Management.QuantumKeyDistributionProfileName != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("quantum_key_distribution_profile_name").String(), c.Management.QuantumKeyDistributionProfileName))
@@ -922,16 +802,12 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.KeyManagementEntityServerPort != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("key_management_entity_server_port").String(), strconv.Itoa(int(*c.Management.KeyManagementEntityServerPort))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("key_management_entity_server_port").String(), "42"))
 	}
 	if c.Management.TrustpointLabel != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("trustpoint_label").String(), c.Management.TrustpointLabel))
 	}
 	if c.SkipCertificateVerification != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("skip_certificate_verification").String(), strconv.FormatBool(*c.SkipCertificateVerification)))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("skip_certificate_verification").String(), "false"))
 	}
 	if c.HostInterfaceAdminState != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("host_interface_admin_state").String(), strconv.FormatBool(*c.HostInterfaceAdminState)))
@@ -955,8 +831,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.PtpVlanId != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ptp_vlan_id").String(), strconv.Itoa(int(*c.Management.PtpVlanId))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ptp_vlan_id").String(), "2"))
 	}
 	if c.MplsHandoff != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("mpls_handoff").String(), strconv.FormatBool(*c.MplsHandoff)))
@@ -965,8 +839,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.MplsLoopbackIdentifier != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("mpls_loopback_identifier").String(), strconv.Itoa(int(*c.Management.MplsLoopbackIdentifier))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("mpls_loopback_identifier").String(), "101"))
 	}
 	if c.Management.MplsIsisAreaNumber != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("mpls_isis_area_number").String(), c.Management.MplsIsisAreaNumber))
@@ -980,18 +852,12 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.StpVlanRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("stp_vlan_range").String(), c.Management.StpVlanRange))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("stp_vlan_range").String(), "1,3-5,7,9-11"))
 	}
 	if c.Management.MstInstanceRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("mst_instance_range").String(), c.Management.MstInstanceRange))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("mst_instance_range").String(), "0-3,5,7-9"))
 	}
 	if c.Management.StpBridgePriority != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("stp_bridge_priority").String(), strconv.Itoa(int(*c.Management.StpBridgePriority))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("stp_bridge_priority").String(), "0"))
 	}
 	if c.Management.AllowVlanOnLeafTorPairing != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("allow_vlan_on_leaf_tor_pairing").String(), c.Management.AllowVlanOnLeafTorPairing))
@@ -1021,18 +887,12 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.MplsLoopbackIpRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("mpls_loopback_ip_range").String(), c.Management.MplsLoopbackIpRange))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("mpls_loopback_ip_range").String(), "10.101.0.0/25"))
 	}
 	if c.Management.Ipv6SubnetRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ipv6_subnet_range").String(), c.Management.Ipv6SubnetRange))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ipv6_subnet_range").String(), "fd00::a04:0/112"))
 	}
 	if c.Management.RouterIdRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("router_id_range").String(), c.Management.RouterIdRange))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("router_id_range").String(), "10.2.0.0/23"))
 	}
 	if c.AutoSymmetricVrfLite != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("auto_symmetric_vrf_lite").String(), strconv.FormatBool(*c.AutoSymmetricVrfLite)))
@@ -1051,8 +911,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.DefaultVrfRedistributionBgpRouteMap != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("default_vrf_redistribution_bgp_route_map").String(), c.Management.DefaultVrfRedistributionBgpRouteMap))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("default_vrf_redistribution_bgp_route_map").String(), "extcon-rmap-filter"))
 	}
 	if c.Management.IpServiceLevelAgreementIdRange != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("ip_service_level_agreement_id_range").String(), c.Management.IpServiceLevelAgreementIdRange))
@@ -1090,8 +948,6 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 	}
 	if c.Management.UnNumberedBootstrapLbId != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("un_numbered_bootstrap_lb_id").String(), strconv.Itoa(int(*c.Management.UnNumberedBootstrapLbId))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("un_numbered_bootstrap_lb_id").String(), "253"))
 	}
 	if c.Management.UnNumberedDhcpStartAddress != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("un_numbered_dhcp_start_address").String(), c.Management.UnNumberedDhcpStartAddress))
@@ -1107,81 +963,51 @@ func FabricVxlanModelHelperStateCheck(RscName string, c resource_fabric_vxlan.ND
 
 	if c.TelemetrySettings.TrafficAnalytics != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("traffic_analytics").String(), c.TelemetrySettings.TrafficAnalytics))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("traffic_analytics").String(), "enabled"))
 	}
 	if c.NetFlow != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("net_flow").String(), strconv.FormatBool(*c.NetFlow)))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("net_flow").String(), "false"))
 	}
 	if c.SFlow != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("s_flow").String(), strconv.FormatBool(*c.SFlow)))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("s_flow").String(), "false"))
 	}
 	if c.FlowTelemetry != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("flow_telemetry").String(), strconv.FormatBool(*c.FlowTelemetry)))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("flow_telemetry").String(), "false"))
 	}
 	if c.TelemetrySettings.TrafficAnalyticsRulesEnabled != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("traffic_analytics_rules_enabled").String(), c.TelemetrySettings.TrafficAnalyticsRulesEnabled))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("traffic_analytics_rules_enabled").String(), "true"))
 	}
 	if c.TelemetrySettings.TrafficAnalyticsMode != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("traffic_analytics_mode").String(), c.TelemetrySettings.TrafficAnalyticsMode))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("traffic_analytics_mode").String(), "full"))
 	}
 	if c.TelemetrySettings.UdpCategorization != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("udp_categorization").String(), c.TelemetrySettings.UdpCategorization))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("udp_categorization").String(), "supported"))
 	}
 	if c.TelemetrySettings.TrafficAnalyticsFilterRules != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("traffic_analytics_filter_rules").String(), c.TelemetrySettings.TrafficAnalyticsFilterRules))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("traffic_analytics_filter_rules").String(), "supported"))
 	}
 	if c.TelemetrySettings.OperatingMode != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("operating_mode").String(), c.TelemetrySettings.OperatingMode))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("operating_mode").String(), "flowTelemetry"))
 	}
 	if c.TelemetrySettings.UdpCategorizationSupport != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("udp_categorization_support").String(), c.TelemetrySettings.UdpCategorizationSupport))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("udp_categorization_support").String(), "supported"))
 	}
 	if c.Microburst != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("microburst").String(), strconv.FormatBool(*c.Microburst)))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("microburst").String(), "false"))
 	}
 	if c.TelemetrySettings.Sensitivity != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("sensitivity").String(), c.TelemetrySettings.Sensitivity))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("sensitivity").String(), "low"))
 	}
 	if c.AnalysisSettingsIsEnabled != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("analysis_settings_is_enabled").String(), strconv.FormatBool(*c.AnalysisSettingsIsEnabled)))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("analysis_settings_is_enabled").String(), "false"))
 	}
 	if c.TelemetrySettings.Server != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("server").String(), c.TelemetrySettings.Server))
 	}
 	if c.TelemetrySettings.ExportType != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("export_type").String(), c.TelemetrySettings.ExportType))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("export_type").String(), "full"))
 	}
 	if c.TelemetrySettings.ExportFormat != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("export_format").String(), c.TelemetrySettings.ExportFormat))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("export_format").String(), "json"))
 	}
 	if c.ExternalStreamingSettings.SyslogFacility != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("syslog_facility").String(), c.ExternalStreamingSettings.SyslogFacility))
@@ -1492,26 +1318,18 @@ func EmailValueHelperStateCheck(RscName string, c resource_fabric_vxlan.NDFCEmai
 	}
 	if c.Format != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("format").String(), c.Format))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("format").String(), "html"))
 	}
 	if c.StartDate != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("start_date").String(), c.StartDate))
 	}
 	if c.CollectionFrequencyInDays != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("collection_frequency_in_days").String(), strconv.Itoa(int(*c.CollectionFrequencyInDays))))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("collection_frequency_in_days").String(), "42"))
 	}
 	if c.CollectionSettings.CollectionType != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("collection_type").String(), c.CollectionSettings.CollectionType))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("collection_type").String(), "basic"))
 	}
 	if c.OnlyIncludeActiveAlerts != nil {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("only_include_active_alerts").String(), strconv.FormatBool(*c.OnlyIncludeActiveAlerts)))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("only_include_active_alerts").String(), "false"))
 	}
 	return ret
 }
@@ -1524,13 +1342,9 @@ func MessageBusValueHelperStateCheck(RscName string, c resource_fabric_vxlan.NDF
 	}
 	if c.CollectionType != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("collection_type").String(), c.CollectionType))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("collection_type").String(), "alertsAndEvents"))
 	}
 	if c.CollectionSettings.CollectionSettingsCollectionType != "" {
 		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("collection_settings_collection_type").String(), c.CollectionSettings.CollectionSettingsCollectionType))
-	} else {
-		ret = append(ret, resource.TestCheckResourceAttr(RscName, attrPath.AtName("collection_settings_collection_type").String(), "basic"))
 	}
 	return ret
 }

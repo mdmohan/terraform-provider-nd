@@ -7,7 +7,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-set -e
+set -ex
 export PATH=$PATH:$GOPATH/bin
 OUTDIR=${1:-"./internal/provider"}
 REPLACE=${2}
@@ -79,7 +79,7 @@ terraform fmt -recursive examples/
 
 if [[ -f $GOPATH/bin/tfplugindocs ]]
 then
-    $GOPATH/bin/tfplugindocs generate --website-source-dir doctemplates
+    $GOPATH/bin/tfplugindocs generate
 else
     go install github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs@latest
 fi

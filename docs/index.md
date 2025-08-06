@@ -17,12 +17,12 @@ description: |-
 
 ### Required
 
-- `password` (String, Sensitive) NDFC Login credentials - password. Enviroment variable `NDFC_PASSWORD` can be used to override the provider configuration.
-- `url` (String) URL to connect to NDFC - Enviroment variable `NDFC_URL` can be used to override the provider configuration.
-- `username` (String) NDFC Login credentials - user.  Enviroment variable `NDFC_USER` can be used to override the provider configuration.
+- `password` (String, Sensitive) NDFC Login credentials - password. Enviroment variable `ND_PASSWORD` can be used to override the provider configuration.
+- `url` (String) URL to connect to NDFC - Enviroment variable `ND_URL` can be used to override the provider configuration.
+- `username` (String) NDFC Login credentials - user.  Enviroment variable `ND_USERNAME` can be used to override the provider configuration.
 
 ### Optional
 
-- `domain` (String) NDFC Login credentials - domain. Enviroment variable `NDFC_DOMAIN` can be used to override the provider configuration.
-- `insecure` (Boolean) Controls whether ND server's certificate chain and host name is verified. This can also be set as the `NDFC_INSECURE` (true or false) environment variable.
-- `timeout` (Number) NDFC HTTP request timeout - timeout. Enviroment variable `NDFC_TIMEOUT` can be used to override the provider configuration.
+- `domain` (String) NDFC Login credentials - domain. Enviroment variable `ND_DOMAIN` can be used to override the provider configuration.
+- `insecure` (Boolean) Controls whether ND server's certificate chain and host name is verified. This can also be set as the `ND_INSECURE` (true or false) environment variable.
+- `timeout` (Number) NDFC HTTP request timeout - timeout. Enviroment variable `ND_TIMEOUT` can be used to override the provider configuration.

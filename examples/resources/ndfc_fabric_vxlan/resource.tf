@@ -46,7 +46,7 @@ resource "ndfc_fabric_vxlan" "test_resource_fabric_vxlan_1" {
   tenant_dhcp                                     = true
   nxapi                                           = false
   nxapi_https_port                                = 443
-  nxapi_http                                      = false
+  nxapi_http                                      = true
   nxapi_http_port                                 = 80
   snmp_trap                                       = true
   anycast_border_gateway_advertise_physical_ip    = false
@@ -147,7 +147,6 @@ resource "ndfc_fabric_vxlan" "test_resource_fabric_vxlan_1" {
   static_underlay_ip_allocation                   = false
   bgp_loopback_ipv6_range                         = "fd00::a02:0/119"
   nve_loopback_ipv6_range                         = "fd00::a03:0/118"
-  ipv6_anycast_rendezvous_point_ip_range          = "fd00::254:254:0/118"
   extra_config_aaa                                = "example_extraConfigAaa"
   aaa                                             = false
   ipv6_link_local                                 = true
@@ -179,7 +178,6 @@ resource "ndfc_fabric_vxlan" "test_resource_fabric_vxlan_1" {
   ibgp_peer_template                              = "example_ibgpPeerTemplate"
   leafibgp_peer_template                          = "example_leafibgpPeerTemplate"
   security_group_tag                              = false
-  security_group_tag_prefix                       = "SG_"
   security_group_tag_id_range                     = "10000-14000"
   security_group_tag_preprovision                 = false
   security_group_status                           = "disabled"
