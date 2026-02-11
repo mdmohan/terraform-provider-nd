@@ -37,6 +37,7 @@ description: |-
 - `anycast_loopback_id` (Number) Underlay Anycast Loopback Id.  Used for vPC Peering in VXLANv6 Fabrics
 - `anycast_rendezvous_point_ip_range` (String) Anycast or Phantom RP IP Address Range
 - `auto_bgp_neighbor_description` (Boolean) Generate BGP EVPN Neighbor Description
+- `auto_generate_multicast_group_address` (Boolean) Auto generate multicast group address
 - `auto_symmetric_default_vrf` (Boolean) Whether to auto generate Default VRF interface and BGP peering configuration on managed neighbor devices. If set, auto created VRF Lite IFC links will have 'Auto Deploy Default VRF for Peer' enabled.
 - `auto_symmetric_vrf_lite` (Boolean) Whether to auto generate VRF LITE sub-interface and BGP peering configuration on managed neighbor devices. If set, auto created VRF Lite IFC links will have 'Auto Deploy for Peer' enabled.
 - `auto_unique_vrf_lite_ip_prefix` (Boolean) When enabled, IP prefix allocated to the VRF LITE IFC is not reused on VRF extension over VRF LITE IFC. Instead, unique IP Subnet is allocated for each VRF extension over VRF LITE IFC.
@@ -50,6 +51,7 @@ description: |-
 - `bfd_isis` (Boolean) Enable BFD For ISIS
 - `bfd_ospf` (Boolean) Enable BFD For OSPF
 - `bfd_pim` (Boolean) Enable BFD For PIM
+- `bgp_as_mode` (String) BGP AS mode configuration (e.g., multiAS)
 - `bgp_authentication` (Boolean) Enables or disables the BGP Authentication
 - `bgp_authentication_key` (String) Encrypted BGP Authentication Key based on type
 - `bgp_authentication_key_type` (String)
@@ -57,6 +59,7 @@ description: |-
 - `bgp_loopback_ip_range` (String) Typically Loopback0 IP Address Range
 - `bgp_loopback_ipv6_range` (String) Typically Loopback0 IPv6 Address Range
 - `bootstrap_multi_subnet` (String) lines with # prefix are ignored here
+- `border_bgp_as` (String) BGP AS number for border switches 1-4294967295 | 1-65535[.0-65535]
 - `brownfield_network_name_format` (String) Generated network name should be less than 64 characters
 - `brownfield_skip_overlay_network_attachments` (Boolean) Skip Overlay Network Interface Attachments for Brownfield and Host Port Resync cases
 - `category` (String) Category name
@@ -93,6 +96,7 @@ description: |-
 - `fabric_vpc_qos_policy_name` (String) Qos Policy name should be same on all spines
 - `flow_telemetry` (Boolean) Enable Flow Telemetry
 - `greenfield_debug_flag` (String) Allow switch configuration to be cleared without a reload when preserveConfig is set to false
+- `heartbeat_interval` (Number) Heartbeat Interval in seconds
 - `host_interface_admin_state` (Boolean) Unshut Host Interfaces by Default
 - `ibgp_peer_template` (String) Specifies the iBGP Peer-Template config used for Route Reflectors and spines with border or border gateway role. This field should begin with '  template peer' or '  template peer-session'. This must have 2 leading spaces. Note ! All configs should strictly match show run output, with respect to case and newlines. Any mismatches will yield unexpected diffs during deploy.
 - `inband_dhcp_servers` (String) External DHCP Server IP Addresses. Comma separated list of ipv4 Addresses (Max 3)
@@ -124,6 +128,7 @@ description: |-
 - `l3_vni_no_vlan_default_option` (Boolean) L3 VNI configuration without VLAN configuration. This value is propagated on vrf creation as the default value of 'Enable L3VNI w/o VLAN' in vrf
 - `l3_vni_range` (String) Overlay VRF Identifier Range (minimum: 1, maximum: 16777214)
 - `l3vni_multicast_group` (String) Default Underlay Multicast group IPv4 address assigned for every overlay VRF
+- `leaf_bgp_as` (String) BGP AS number for leaf switches 1-4294967295 | 1-65535[.0-65535]
 - `leaf_to_r_id_range` (Boolean) Use specific vPC/Port-channel ID range for leaf-tor pairings
 - `leaf_tor_vpc_port_channel_id_range` (String) Specify vPC/Port-channel ID range (minimum: 1, maximum: 4096), this range is used for auto-allocating vPC/Port-Channel IDs for leaf-tor pairings
 - `leafibgp_peer_template` (String) Specifies the config used for leaf, border or border gateway.  If this field is empty, the peer template defined in iBGP Peer-Template Config is used on all BGP enabled devices (RRs, leafs, border or border gateway roles).  This field should begin with '  template peer' or '  template peer-session'. This must have 2 leading spaces. Note ! All configs should strictly match 'show run' output, with respect to case and newlines. Any mismatches will yield unexpected diffs during deploy.
@@ -153,10 +158,10 @@ description: |-
 - `mvpn_vrf_route_import_id` (Boolean) Enable MVPN VRI ID Generation For Tenant Routed Multicast With IPv4 Underlay
 - `mvpn_vrf_route_import_id_range` (String) MVPN VRI ID (minimum: 1, maximum: 65535) for vPC, applicable when TRM enabled with IPv6 underlay, or mvpnVrfRouteImportId enabled with IPv4 underlay
 - `net_flow` (Boolean) Enable NetFlow
-- `netflow` (Boolean) Enable netflow on the interface
+- `netflow_enable` (Boolean) Enable netflow on the interface
 - `netflow_exporter_collection` (Attributes List) One or Multiple Netflow Exporters (see [below for nested schema](#nestedatt--netflow_exporter_collection))
 - `netflow_monitor_collection` (Attributes List) One or Multiple Netflow Monitors (see [below for nested schema](#nestedatt--netflow_monitor_collection))
-- `netflow_record_collection` (Attributes List) One or Multiple Netflow Records (see [below for nested schema](#nestedatt--netflow_record_collection))
+- `netflow_record_collection` (Attributes List) (see [below for nested schema](#nestedatt--netflow_record_collection))
 - `netflow_sampler_collection` (Attributes List) One or multiple netflow samplers. Applicable to N7K only (see [below for nested schema](#nestedatt--netflow_sampler_collection))
 - `network_extension_template` (String) Default Overlay Network Template For Borders
 - `network_template` (String) Default Overlay Network Template For Leafs
@@ -178,7 +183,7 @@ description: |-
 - `object_tracking_number_range` (String) Tracked Object ID Range (minimum: 1, maximum: 512) Per switch tracked object ID Range
 - `operating_mode` (String) Flow collection mode as set on the fabric's telemetry cluster
 - `orchestration_status` (String) The orchestration status of the fabric_vxlan_evpn resource
-- `ospf_area_id` (String) OSPF Area Id in IP address format
+- `ospf_area_id` (String) OSPF Area Id in IP address format. Not applicable for eBGP fabric type
 - `ospf_authentication` (Boolean) Enable OSPF Authentication
 - `ospf_authentication_key` (String) OSPF Authentication Key.  3DES Encrypted
 - `ospf_authentication_key_id` (Number) (Min:0, Max:255)
@@ -240,6 +245,7 @@ description: |-
 - `stp_vlan_range` (String) Spanning tree Vlan range (minimum: 0, maximum: 4094)
 - `strict_config_compliance_mode` (Boolean) Enable bi-directional compliance checks to flag additional configs in the running config that are not in the intent/expected config
 - `sub_interface_dot1q_range` (String) Per aggregation dot1q range (minimum: 2, maximum: 4093) for VRF-Lite connectivity
+- `super_spine_bgp_as` (String) BGP AS number for super spine switches 1-4294967295 | 1-65535[.0-65535]
 - `syslog_anomalies` (Set of String) vPC pair anomalies response
 - `syslog_facility` (String) The facility value to be used in syslog messages. This helps categorize and filter syslog messages on the receiving server.
 - `syslog_server_collection` (Set of String) List of Syslog server IPv4/IPv6 addresses and/or hostnames
@@ -282,6 +288,8 @@ description: |-
 - `vrf_extension_template` (String) Default Overlay VRF Template For Borders
 - `vrf_flow_rules` (Attributes List) VRF flow rules (see [below for nested schema](#nestedatt--vrf_flow_rules))
 - `vrf_lite_auto_config` (String) VRF Lite Inter-Fabric Connection Deployment Options. If 'back2Back&ToExternal' is selected, VRF Lite IFCs are auto created between border devices of two Easy Fabrics, and between border devices in Easy Fabric and edge routers in External Fabric. The IP address is taken from the 'VRF Lite Subnet IP Range' pool.
+- `vrf_lite_ipv6_subnet_range` (String) Address range to assign P2P Interfabric Connections
+- `vrf_lite_ipv6_subnet_target_mask` (Number) VRF Lite Subnet Mask
 - `vrf_lite_macsec` (Boolean) Enable MACsec on DCI links. DCI MACsec fabric parameters are used for configuring MACsec on a DCI link if 'Use Link MACsec Setting' is disabled on the link.
 - `vrf_lite_macsec_algorithm` (String) DCI MACsec Primary Cryptographic Algorithm
 - `vrf_lite_macsec_cipher_suite` (String) DCI MACsec Cipher Suite
@@ -467,7 +475,7 @@ Optional:
 
 Optional:
 
-- `layer2_record` (Boolean)
+- `layer2_record` (Boolean) One or Multiple Netflow Records
 - `record_name` (String)
 - `record_template` (String)
 

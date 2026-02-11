@@ -102,6 +102,39 @@ resource:
     - management
     example: '55000'
     description: Autonomous system number 1-4294967295 | 1-65535[.0-65535]
+  - model_name: superSpineBgpAs
+    tf_name: super_spine_bgp_as
+    type: String
+    optional: true
+    ndfc_nested:
+    - management
+    example: '65000'
+    description: BGP AS number for super spine switches 1-4294967295 | 1-65535[.0-65535]
+    validator: 
+  - model_name: leafBgpAs
+    tf_name: leaf_bgp_as
+    type: String
+    optional: true
+    ndfc_nested:
+    - management
+    example: '65001'
+    description: BGP AS number for leaf switches 1-4294967295 | 1-65535[.0-65535]
+  - model_name: borderBgpAs
+    tf_name: border_bgp_as
+    type: String
+    optional: true
+    ndfc_nested:
+    - management
+    example: '65002'
+    description: BGP AS number for border switches 1-4294967295 | 1-65535[.0-65535]
+  - model_name: bgpAsMode
+    tf_name: bgp_as_mode
+    type: String
+    optional: true
+    ndfc_nested:
+    - management
+    example: 'multiAS'
+    description: BGP AS mode configuration (e.g., multiAS)
   - model_name: targetSubnetMask
     tf_name: target_subnet_mask
     type: Int64
@@ -564,6 +597,26 @@ resource:
     ndfc_nested:
     - management
     description: VRF Lite Subnet Mask
+
+  - model_name: vrfLiteIpv6SubnetRange
+    tf_name: vrf_lite_ipv6_subnet_range
+    type: String
+    example: 2001::10.33.0.0/16
+    optional: true
+    computed: true
+    ndfc_nested:
+    - management
+    description: Address range to assign P2P Interfabric Connections
+
+  - model_name: vrfLiteIpv6SubnetTargetMask
+    tf_name: vrf_lite_ipv6_subnet_target_mask
+    type: Int64
+    default_value: 126
+    example: 126
+    ndfc_nested:
+    - management
+    description: VRF Lite Subnet Mask
+
   - model_name: autoUniqueVrfLiteIpPrefix
     tf_name: auto_unique_vrf_lite_ip_prefix
     type: Bool
@@ -798,6 +851,18 @@ resource:
     - management
     description: Multicast rendezvous point Mode. For ipv6 underlay, please use asm
       only
+
+  - model_name: autoGenerateMulticastGroupAddress
+    tf_name: auto_generate_multicast_group_address
+    type: Bool
+    example: false
+    computed: true
+    optional: true
+    ndfc_type: bool
+    ndfc_nested:
+    - management
+    description: Auto generate multicast group address
+
   - model_name: phantomRendezvousPointLoopbackId1
     tf_name: phantom_rendezvous_point_loopback_id1
     type: Int64
@@ -901,7 +966,8 @@ resource:
   - model_name: bgpAuthenticationKeyType
     tf_name: bgp_authentication_key_type
     type: String
-    default_value: 3des
+    computed: true
+    optional: true
     example: 3des
     ndfc_nested:
     - management
@@ -1205,7 +1271,8 @@ resource:
   - model_name: aimlQosPolicy
     tf_name: aiml_qos_policy
     type: String
-    default_value: 400G
+    computed: true
+    optional: true
     example: 400G
     ndfc_nested:
     - management
@@ -1269,7 +1336,8 @@ resource:
   - model_name: ipv6LinkLocal
     tf_name: ipv6_link_local
     type: Bool
-    default_value: true
+    optional: true
+    computed: true
     example: true
     ndfc_type: bool
     ndfc_nested:
@@ -1278,7 +1346,8 @@ resource:
   - model_name: fabricInterfaceType
     tf_name: fabric_interface_type
     type: String
-    default_value: p2p
+    computed: true
+    optional: true
     example: p2p
     ndfc_nested:
     - management
@@ -1286,7 +1355,8 @@ resource:
   - model_name: ipv6SubnetTargetMask
     tf_name: ipv6_subnet_target_mask
     type: Int64
-    default_value: 126
+    optional: true
+    computed: true
     example: 126
     ndfc_nested:
     - management
@@ -1294,7 +1364,8 @@ resource:
   - model_name: linkStateRoutingProtocol
     tf_name: link_state_routing_protocol
     type: String
-    default_value: ospf
+    optional: true
+    computed: true
     example: ospf
     ndfc_nested:
     - management
@@ -1302,7 +1373,8 @@ resource:
   - model_name: routeReflectorCount
     tf_name: route_reflector_count
     type: Int64
-    default_value: 2
+    optional: true
+    computed: true
     example: 2
     ndfc_nested:
     - management
@@ -1315,7 +1387,7 @@ resource:
     ndfc_nested:
     - management
     description: vPC delay restore timer for ToR switches (in seconds)
-  - model_name: leafToRIdRange
+  - model_name: leafTorIdRange
     tf_name: leaf_to_r_id_range
     type: Bool
     default_value: false
@@ -1335,7 +1407,8 @@ resource:
   - model_name: linkStateRoutingTag
     tf_name: link_state_routing_tag
     type: String
-    default_value: UNDERLAY
+    optional: true
+    computed: true  
     example: UNDERLAY
     ndfc_nested:
     - management
@@ -1343,15 +1416,17 @@ resource:
   - model_name: ospfAreaId
     tf_name: ospf_area_id
     type: String
-    default_value: 0.0.0.0
+    optional: true
+    computed: true
     example: 0.0.0.0
     ndfc_nested:
     - management
-    description: OSPF Area Id in IP address format
+    description: OSPF Area Id in IP address format. Not applicable for eBGP fabric type
   - model_name: ospfAuthentication
     tf_name: ospf_authentication
     type: Bool
-    default_value: false
+    optional: true
+    computed: true
     example: false
     ndfc_type: bool
     ndfc_nested:
@@ -1374,7 +1449,8 @@ resource:
   - model_name: isisLevel
     tf_name: isis_level
     type: String
-    default_value: level-2
+    optional: true
+    computed: true
     example: level-2
     ndfc_nested:
     - management
@@ -1382,7 +1458,8 @@ resource:
   - model_name: isisAreaNumber
     tf_name: isis_area_number
     type: String
-    default_value: '0001'
+    optional: true
+    computed: true
     example: '0001'
     ndfc_nested:
     - management
@@ -1402,7 +1479,8 @@ resource:
   - model_name: isisAuthentication
     tf_name: isis_authentication
     type: Bool
-    default_value: false
+    optional: true
+    computed: true
     example: false
     ndfc_type: bool
     ndfc_nested:
@@ -1449,7 +1527,8 @@ resource:
   - model_name: bfdOspf
     tf_name: bfd_ospf
     type: Bool
-    default_value: false
+    optional: true
+    computed: true
     example: false
     ndfc_type: bool
     ndfc_nested:
@@ -1458,7 +1537,8 @@ resource:
   - model_name: bfdIsis
     tf_name: bfd_isis
     type: Bool
-    default_value: false
+    optional: true
+    computed: true
     example: false
     ndfc_type: bool
     ndfc_nested:
@@ -1467,7 +1547,8 @@ resource:
   - model_name: bfdPim
     tf_name: bfd_pim
     type: Bool
-    default_value: false
+    optional: true
+    computed: true
     example: false
     ndfc_type: bool
     ndfc_nested:
@@ -1476,7 +1557,8 @@ resource:
   - model_name: autoBgpNeighborDescription
     tf_name: auto_bgp_neighbor_description
     type: Bool
-    default_value: true
+    optional: true
+    computed: true
     example: true
     ndfc_type: bool
     ndfc_nested:
@@ -1509,7 +1591,8 @@ resource:
   - model_name: securityGroupTag
     tf_name: security_group_tag
     type: Bool
-    default_value: false
+    optional: true
+    computed: true
     example: false
     ndfc_type: bool
     ndfc_nested:
@@ -1546,7 +1629,8 @@ resource:
   - model_name: vrfLiteMacsec
     tf_name: vrf_lite_macsec
     type: Bool
-    default_value: false
+    optional: true
+    computed: true
     example: false
     ndfc_type: bool
     ndfc_nested:
@@ -1639,7 +1723,8 @@ resource:
   - model_name: hostInterfaceAdminState
     tf_name: host_interface_admin_state
     type: Bool
-    default_value: true
+    optional: true
+    computed: true
     example: true
     ndfc_type: bool
     ndfc_nested:
@@ -1648,7 +1733,8 @@ resource:
   - model_name: brownfieldNetworkNameFormat
     tf_name: brownfield_network_name_format
     type: String
-    default_value: Auto_Net_VNI$$VNI$$_VLAN$$VLAN_ID$$
+    computed: true
+    optional: true
     example: Auto_Net_VNI$$VNI$$_VLAN$$VLAN_ID$$
     ndfc_nested:
     - management
@@ -1656,7 +1742,8 @@ resource:
   - model_name: brownfieldSkipOverlayNetworkAttachments
     tf_name: brownfield_skip_overlay_network_attachments
     type: Bool
-    default_value: false
+    optional: true
+    computed: true
     example: false
     ndfc_type: bool
     ndfc_nested:
@@ -1666,7 +1753,8 @@ resource:
   - model_name: policyBasedRouting
     tf_name: policy_based_routing
     type: Bool
-    default_value: false
+    optional: true
+    computed: true
     example: false
     ndfc_type: bool
     ndfc_nested:
@@ -1684,7 +1772,8 @@ resource:
   - model_name: mplsHandoff
     tf_name: mpls_handoff
     type: Bool
-    default_value: false
+    optional: true
+    computed: true
     example: false
     ndfc_type: bool
     ndfc_nested:
@@ -1700,7 +1789,8 @@ resource:
   - model_name: mplsIsisAreaNumber
     tf_name: mpls_isis_area_number
     type: String
-    default_value: '0001'
+    optional: true
+    computed: true
     example: '0001'
     ndfc_nested:
     - management
@@ -1710,7 +1800,8 @@ resource:
   - model_name: stpRootOption
     tf_name: stp_root_option
     type: String
-    default_value: unmanaged
+    optional: true
+    computed: true
     example: unmanaged
     ndfc_nested:
     - management
@@ -1827,7 +1918,8 @@ resource:
   - model_name: autoSymmetricVrfLite
     tf_name: auto_symmetric_vrf_lite
     type: Bool
-    default_value: false
+    optional: true
+    computed: true
     example: false
     ndfc_type: bool
     ndfc_nested:
@@ -1838,7 +1930,8 @@ resource:
   - model_name: autoVrfLiteDefaultVrf
     tf_name: auto_vrf_lite_default_vrf
     type: Bool
-    default_value: false
+    optional: true
+    computed: true
     example: false
     ndfc_type: bool
     ndfc_nested:
@@ -1849,7 +1942,8 @@ resource:
   - model_name: autoSymmetricDefaultVrf
     tf_name: auto_symmetric_default_vrf
     type: Bool
-    default_value: false
+    optional: true
+    computed: true
     example: false
     ndfc_type: bool
     ndfc_nested:
@@ -1868,7 +1962,8 @@ resource:
   - model_name: ipServiceLevelAgreementIdRange
     tf_name: ip_service_level_agreement_id_range
     type: String
-    default_value: 10000-19999
+    optional: true
+    computed: true
     example: 10000-19999
     ndfc_nested:
     - management
@@ -1877,7 +1972,8 @@ resource:
   - model_name: objectTrackingNumberRange
     tf_name: object_tracking_number_range
     type: String
-    default_value: 100-299
+    optional: true
+    computed: true
     example: 100-299
     ndfc_nested:
     - management
@@ -1886,7 +1982,8 @@ resource:
   - model_name: serviceNetworkVlanRange
     tf_name: service_network_vlan_range
     type: String
-    default_value: 3000-3199
+    optional: true
+    computed: true
     example: 3000-3199
     ndfc_nested:
     - management
@@ -1895,7 +1992,8 @@ resource:
   - model_name: routeMapSequenceNumberRange
     tf_name: route_map_sequence_number_range
     type: String
-    default_value: 1-65534
+    optional: true
+    computed: true
     example: 1-65534
     ndfc_nested:
     - management
@@ -1903,7 +2001,8 @@ resource:
   - model_name: inbandManagement
     tf_name: inband_management
     type: Bool
-    default_value: false
+    optional: true
+    computed: true
     example: false
     ndfc_type: bool
     ndfc_nested:
@@ -1956,6 +2055,15 @@ resource:
     - management
     description: Switch Loopback DHCP Scope End Address. Must be a subset of IGP/BGP
       Loopback Prefix Pool
+  - model_name: heartbeatInterval
+    tf_name: heartbeat_interval
+    type: Int64
+    example: 190
+    optional: true
+    computed: true
+    ndfc_nested:
+    - management
+    description: Heartbeat Interval in seconds
   - model_name: dnsCollection
     tf_name: dns_collection
     type: List:String
@@ -2009,7 +2117,7 @@ resource:
     description: Syslog Server VRFs. One VRF for all Syslog servers or a list of VRFs,
       one per Syslog server
   - model_name: netflow
-    tf_name: netflow
+    tf_name: netflow_enable
     type: Bool
     ndfc_type: bool
     default_value: false
@@ -2068,8 +2176,7 @@ resource:
       type: Bool
       default_value: false
       example: false
-      ndfc_type: bool
-    description: One or Multiple Netflow Records
+      description: One or Multiple Netflow Records
   - model_name: netflowMonitorCollection
     tf_name: netflow_monitor_collection
     type: List
@@ -2355,10 +2462,11 @@ resource:
       type: List:String
       example: '["example_subnets_item"]'
     description: L3Out flow rules, applicable only for ACI fabrics
-  - model_name: trafficAnalyticsRulesEnabled
+  - model_name: enabled
     tf_name: traffic_analytics_rules_enabled
     type: Bool
     example: true
+    ndfc_type: bool
     ndfc_nested:
     - telemetrySettings
     - flowCollection
@@ -2502,6 +2610,8 @@ resource:
     tf_name: microburst
     type: Bool
     example: false
+    optional: true
+    computed: true
     ndfc_type: bool
     description: Enable microburst detection. When enabled, the system will detect
       microbursts in network traffic.
@@ -2512,12 +2622,14 @@ resource:
     tf_name: sensitivity
     type: String
     example: low
+    computed: true
+    optional: true
     description: Microburst sensitivity level. Can be set to low, medium, or high
       to determine the threshold for detecting microbursts.
     ndfc_nested:
     - telemetrySettings
     - microburst
-  - model_name: analysisSettingsIsEnabled
+  - model_name: isEnabled
     tf_name: analysis_settings_is_enabled
     type: Bool
     example: false
@@ -2560,6 +2672,8 @@ resource:
     tf_name: cost
     type: Float64
     example: 1.2
+    computed: true
+    optional: true
     description: Energy cost in USD/kWh. Used for energy management calculations and
       reporting.
     ndfc_nested:

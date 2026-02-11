@@ -14,6 +14,10 @@ resource "ndfc_fabric_vxlan" "test_resource_fabric_vxlan_1" {
   security_domain                                 = "all"
   fabric_type                                     = "vxlanIbgp"
   bgp_asn                                         = "55000"
+  super_spine_bgp_as                              = "65000"
+  leaf_bgp_as                                     = "65001"
+  border_bgp_as                                   = "65002"
+  bgp_as_mode                                     = "multiAS"
   target_subnet_mask                              = 30
   anycast_gateway_mac                             = "2020.0000.00aa"
   performance_monitoring                          = false
@@ -66,6 +70,8 @@ resource "ndfc_fabric_vxlan" "test_resource_fabric_vxlan_1" {
   vrf_lite_auto_config                            = "manual"
   vrf_lite_subnet_range                           = "10.33.0.0/16"
   vrf_lite_subnet_target_mask                     = 30
+  vrf_lite_ipv6_subnet_range                      = "2001::10.33.0.0/16"
+  vrf_lite_ipv6_subnet_target_mask                = 126
   auto_unique_vrf_lite_ip_prefix                  = false
   per_vrf_loopback_auto_provision                 = false
   per_vrf_loopback_ip_range                       = "10.5.0.0/22"
@@ -93,6 +99,7 @@ resource "ndfc_fabric_vxlan" "test_resource_fabric_vxlan_1" {
   l3vni_multicast_group                           = "239.1.1.0"
   l3_vni_ipv6_multicast_group                     = "ff1e::"
   rendezvous_point_mode                           = "asm"
+  auto_generate_multicast_group_address           = false
   phantom_rendezvous_point_loopback_id1           = 2
   phantom_rendezvous_point_loopback_id2           = 3
   phantom_rendezvous_point_loopback_id3           = 4
@@ -231,7 +238,8 @@ resource "ndfc_fabric_vxlan" "test_resource_fabric_vxlan_1" {
   un_numbered_bootstrap_lb_id                     = 253
   un_numbered_dhcp_start_address                  = "192.168.1.1"
   un_numbered_dhcp_end_address                    = "192.168.1.1"
-  netflow                                         = false
+  heartbeat_interval                              = 190
+  netflow_enable                                  = false
   traffic_analytics                               = "enabled"
   net_flow                                        = false
   s_flow                                          = false

@@ -24,11 +24,11 @@ type NDFCFabricVxlanModel struct {
 	Category                   string                             `json:"category,omitempty"`
 	Location                   NDFCLocationValue                  `json:"location,omitempty"`
 	AlertSuspend               string                             `json:"alertSuspend,omitempty"`
-	ExternalStreamingSettings  NDFCExternalStreamingSettingsValue `json:"externalStreamingSettings,omitempty"`
-	Management                 NDFCManagementValue                `json:"management,omitempty"`
-	TelemetrySettings          NDFCTelemetrySettingsValue         `json:"telemetrySettings,omitempty"`
 	FeatureStatus              NDFCFeatureStatusValue             `json:"featureStatus,omitempty"`
+	TelemetrySettings          NDFCTelemetrySettingsValue         `json:"telemetrySettings,omitempty"`
+	ExternalStreamingSettings  NDFCExternalStreamingSettingsValue `json:"externalStreamingSettings,omitempty"`
 	Meta                       NDFCMetaValue                      `json:"meta,omitempty"`
+	Management                 NDFCManagementValue                `json:"management,omitempty"`
 }
 
 type NDFCLocationValue struct {
@@ -36,330 +36,11 @@ type NDFCLocationValue struct {
 	Longitude *float64 `json:"longitude,omitempty"`
 }
 
-type NDFCExternalStreamingSettingsValue struct {
-	Email      NDFCEmailValues                          `json:"email,omitempty"`
-	MessageBus NDFCMessageBusValues                     `json:"messageBus,omitempty"`
-	Syslog     NDFCExternalStreamingSettingsSyslogValue `json:"syslog,omitempty"`
-}
-
-type NDFCEmailValues []NDFCEmailValue
-
-type NDFCEmailValue struct {
-	Name                      string                      `json:"name,omitempty"`
-	ReceiverEmail             string                      `json:"receiverEmail,omitempty"`
-	Format                    string                      `json:"format,omitempty"`
-	StartDate                 string                      `json:"startDate,omitempty"`
-	CollectionFrequencyInDays *int64                      `json:"collectionFrequencyInDays,omitempty"`
-	OnlyIncludeActiveAlerts   *bool                       `json:"onlyIncludeActiveAlerts,omitempty"`
-	CollectionSettings        NDFCCollectionSettingsValue `json:"collectionSettings,omitempty"`
-}
-
-type NDFCCollectionSettingsValue struct {
-	CollectionType            string   `json:"collectionType,omitempty"`
-	Anomalies                 []string `json:"anomalies,omitempty"`
-	Advisories                []string `json:"advisories,omitempty"`
-	RiskAndConformanceReports []string `json:"riskAndConformanceReports,omitempty"`
-}
-
-type NDFCMessageBusValues []NDFCMessageBusValue
-
-type NDFCMessageBusValue struct {
-	Server             string                                `json:"server,omitempty"`
-	CollectionType     string                                `json:"collectionType,omitempty"`
-	CollectionSettings NDFCMessageBusCollectionSettingsValue `json:"collectionSettings,omitempty"`
-}
-
-type NDFCMessageBusCollectionSettingsValue struct {
-	CollectionSettingsCollectionType string   `json:"collectionType,omitempty"`
-	Anomalies                        []string `json:"anomalies,omitempty"`
-	Advisories                       []string `json:"advisories,omitempty"`
-	Statistics                       []string `json:"statistics,omitempty"`
-	Faults                           []string `json:"faults,omitempty"`
-	AuditLogs                        []string `json:"auditLogs,omitempty"`
-}
-
-type NDFCExternalStreamingSettingsSyslogValue struct {
-	SyslogServers      []string                          `json:"servers,omitempty"`
-	SyslogFacility     string                            `json:"facility,omitempty"`
-	CollectionSettings NDFCSyslogCollectionSettingsValue `json:"collectionSettings,omitempty"`
-}
-
-type NDFCSyslogCollectionSettingsValue struct {
-	SyslogAnomalies []string `json:"anomalies,omitempty"`
-}
-
-type NDFCManagementValue struct {
-	FabricType                                 string                             `json:"type,omitempty"`
-	BgpAsn                                     string                             `json:"bgpAsn,omitempty"`
-	TargetSubnetMask                           *int64                             `json:"targetSubnetMask,omitempty"`
-	AnycastGatewayMac                          string                             `json:"anycastGatewayMac,omitempty"`
-	PerformanceMonitoring                      *bool                              `json:"performanceMonitoring,omitempty"`
-	ReplicationMode                            string                             `json:"replicationMode,omitempty"`
-	MulticastGroupSubnet                       string                             `json:"multicastGroupSubnet,omitempty"`
-	TenantRoutedMulticast                      *bool                              `json:"tenantRoutedMulticast,omitempty"`
-	RendezvousPointCount                       *int64                             `json:"rendezvousPointCount,omitempty"`
-	RendezvousPointLoopbackId                  *int64                             `json:"rendezvousPointLoopbackId,omitempty"`
-	VpcPeerLinkVlan                            string                             `json:"vpcPeerLinkVlan,omitempty"`
-	VpcPeerLinkEnableNativeVlan                *bool                              `json:"vpcPeerLinkEnableNativeVlan,omitempty"`
-	VpcPeerKeepAliveOption                     string                             `json:"vpcPeerKeepAliveOption,omitempty"`
-	VpcAutoRecoveryTimer                       *int64                             `json:"vpcAutoRecoveryTimer,omitempty"`
-	VpcDelayRestoreTimer                       *int64                             `json:"vpcDelayRestoreTimer,omitempty"`
-	VpcPeerLinkPortChannelId                   string                             `json:"vpcPeerLinkPortChannelId,omitempty"`
-	VpcIpv6NeighborDiscoverySync               *bool                              `json:"vpcIpv6NeighborDiscoverySync,omitempty"`
-	AdvertisePhysicalIp                        *bool                              `json:"advertisePhysicalIp,omitempty"`
-	VpcDomainIdRange                           string                             `json:"vpcDomainIdRange,omitempty"`
-	BgpLoopbackId                              *int64                             `json:"bgpLoopbackId,omitempty"`
-	NveLoopbackId                              *int64                             `json:"nveLoopbackId,omitempty"`
-	VrfTemplate                                string                             `json:"vrfTemplate,omitempty"`
-	NetworkTemplate                            string                             `json:"networkTemplate,omitempty"`
-	VrfExtensionTemplate                       string                             `json:"vrfExtensionTemplate,omitempty"`
-	NetworkExtensionTemplate                   string                             `json:"networkExtensionTemplate,omitempty"`
-	L3VniNoVlanDefaultOption                   *bool                              `json:"l3VniNoVlanDefaultOption,omitempty"`
-	SiteId                                     string                             `json:"siteId,omitempty"`
-	FabricMtu                                  *int64                             `json:"fabricMtu,omitempty"`
-	L2HostInterfaceMtu                         *int64                             `json:"l2HostInterfaceMtu,omitempty"`
-	TenantDhcp                                 *bool                              `json:"tenantDhcp,omitempty"`
-	Nxapi                                      *bool                              `json:"nxapi,omitempty"`
-	NxapiHttpsPort                             *int64                             `json:"nxapiHttpsPort,omitempty"`
-	NxapiHttp                                  *bool                              `json:"nxapiHttp,omitempty"`
-	NxapiHttpPort                              *int64                             `json:"nxapiHttpPort,omitempty"`
-	SnmpTrap                                   *bool                              `json:"snmpTrap,omitempty"`
-	AnycastBorderGatewayAdvertisePhysicalIp    *bool                              `json:"anycastBorderGatewayAdvertisePhysicalIp,omitempty"`
-	GreenfieldDebugFlag                        string                             `json:"greenfieldDebugFlag,omitempty"`
-	TcamAllocation                             *bool                              `json:"tcamAllocation,omitempty"`
-	RealTimeInterfaceStatisticsCollection      *bool                              `json:"realTimeInterfaceStatisticsCollection,omitempty"`
-	InterfaceStatisticsLoadInterval            *int64                             `json:"interfaceStatisticsLoadInterval,omitempty"`
-	BgpLoopbackIpRange                         string                             `json:"bgpLoopbackIpRange,omitempty"`
-	NveLoopbackIpRange                         string                             `json:"nveLoopbackIpRange,omitempty"`
-	AnycastRendezvousPointIpRange              string                             `json:"anycastRendezvousPointIpRange,omitempty"`
-	IntraFabricSubnetRange                     string                             `json:"intraFabricSubnetRange,omitempty"`
-	L2VniRange                                 string                             `json:"l2VniRange,omitempty"`
-	L3VniRange                                 string                             `json:"l3VniRange,omitempty"`
-	NetworkVlanRange                           string                             `json:"networkVlanRange,omitempty"`
-	VrfVlanRange                               string                             `json:"vrfVlanRange,omitempty"`
-	SubInterfaceDot1qRange                     string                             `json:"subInterfaceDot1qRange,omitempty"`
-	VrfLiteAutoConfig                          string                             `json:"vrfLiteAutoConfig,omitempty"`
-	VrfLiteSubnetRange                         string                             `json:"vrfLiteSubnetRange,omitempty"`
-	VrfLiteSubnetTargetMask                    *int64                             `json:"vrfLiteSubnetTargetMask,omitempty"`
-	AutoUniqueVrfLiteIpPrefix                  *bool                              `json:"autoUniqueVrfLiteIpPrefix,omitempty"`
-	PerVrfLoopbackAutoProvision                *bool                              `json:"perVrfLoopbackAutoProvision,omitempty"`
-	PerVrfLoopbackIpRange                      string                             `json:"perVrfLoopbackIpRange,omitempty"`
-	PerVrfLoopbackAutoProvisionIpv6            *bool                              `json:"perVrfLoopbackAutoProvisionIpv6,omitempty"`
-	PerVrfLoopbackIpv6Range                    string                             `json:"perVrfLoopbackIpv6Range,omitempty"`
-	Banner                                     string                             `json:"banner,omitempty"`
-	Day0Bootstrap                              *bool                              `json:"day0Bootstrap,omitempty"`
-	LocalDhcpServer                            *bool                              `json:"localDhcpServer,omitempty"`
-	DhcpProtocolVersion                        string                             `json:"dhcpProtocolVersion,omitempty"`
-	DhcpStartAddress                           string                             `json:"dhcpStartAddress,omitempty"`
-	DhcpEndAddress                             string                             `json:"dhcpEndAddress,omitempty"`
-	ManagementGateway                          string                             `json:"managementGateway,omitempty"`
-	ManagementIpv4Prefix                       *int64                             `json:"managementIpv4Prefix,omitempty"`
-	ManagementIpv6Prefix                       *int64                             `json:"managementIpv6Prefix,omitempty"`
-	BootstrapMultiSubnet                       string                             `json:"bootstrapMultiSubnet,omitempty"`
-	ExtraConfigNxosBootstrap                   string                             `json:"extraConfigNxosBootstrap,omitempty"`
-	RealTimeBackup                             *bool                              `json:"realTimeBackup,omitempty"`
-	ScheduledBackup                            *bool                              `json:"scheduledBackup,omitempty"`
-	ScheduledBackupTime                        string                             `json:"scheduledBackupTime,omitempty"`
-	UnderlayIpv6                               *bool                              `json:"underlayIpv6,omitempty"`
-	Ipv6MulticastGroupSubnet                   string                             `json:"ipv6MulticastGroupSubnet,omitempty"`
-	TenantRoutedMulticastIpv6                  *bool                              `json:"tenantRoutedMulticastIpv6,omitempty"`
-	MvpnVrfRouteImportId                       *bool                              `json:"mvpnVrfRouteImportId,omitempty"`
-	MvpnVrfRouteImportIdRange                  string                             `json:"mvpnVrfRouteImportIdRange,omitempty"`
-	VrfRouteImportIdReallocation               *bool                              `json:"vrfRouteImportIdReallocation,omitempty"`
-	L3vniMulticastGroup                        string                             `json:"l3vniMulticastGroup,omitempty"`
-	L3VniIpv6MulticastGroup                    string                             `json:"l3VniIpv6MulticastGroup,omitempty"`
-	RendezvousPointMode                        string                             `json:"rendezvousPointMode,omitempty"`
-	PhantomRendezvousPointLoopbackId1          *int64                             `json:"phantomRendezvousPointLoopbackId1,omitempty"`
-	PhantomRendezvousPointLoopbackId2          *int64                             `json:"phantomRendezvousPointLoopbackId2,omitempty"`
-	PhantomRendezvousPointLoopbackId3          *int64                             `json:"phantomRendezvousPointLoopbackId3,omitempty"`
-	PhantomRendezvousPointLoopbackId4          *int64                             `json:"phantomRendezvousPointLoopbackId4,omitempty"`
-	AdvertisePhysicalIpOnBorder                *bool                              `json:"advertisePhysicalIpOnBorder,omitempty"`
-	FabricVpcDomainId                          *bool                              `json:"fabricVpcDomainId,omitempty"`
-	SharedVpcDomainId                          *int64                             `json:"sharedVpcDomainId,omitempty"`
-	VpcLayer3PeerRouter                        *bool                              `json:"vpcLayer3PeerRouter,omitempty"`
-	FabricVpcQos                               *bool                              `json:"fabricVpcQos,omitempty"`
-	FabricVpcQosPolicyName                     string                             `json:"fabricVpcQosPolicyName,omitempty"`
-	AnycastLoopbackId                          *int64                             `json:"anycastLoopbackId,omitempty"`
-	BgpAuthentication                          *bool                              `json:"bgpAuthentication,omitempty"`
-	BgpAuthenticationKeyType                   string                             `json:"bgpAuthenticationKeyType,omitempty"`
-	BgpAuthenticationKey                       string                             `json:"bgpAuthenticationKey,omitempty"`
-	PimHelloAuthentication                     *bool                              `json:"pimHelloAuthentication,omitempty"`
-	PimHelloAuthenticationKey                  string                             `json:"pimHelloAuthenticationKey,omitempty"`
-	Bfd                                        *bool                              `json:"bfd,omitempty"`
-	BfdIbgp                                    *bool                              `json:"bfdIbgp,omitempty"`
-	BfdAuthentication                          *bool                              `json:"bfdAuthentication,omitempty"`
-	BfdAuthenticationKeyId                     *int64                             `json:"bfdAuthenticationKeyId,omitempty"`
-	BfdAuthenticationKey                       string                             `json:"bfdAuthenticationKey,omitempty"`
-	Macsec                                     *bool                              `json:"macsec,omitempty"`
-	MacsecCipherSuite                          string                             `json:"macsecCipherSuite,omitempty"`
-	MacsecKeyString                            string                             `json:"macsecKeyString,omitempty"`
-	MacsecAlgorithm                            string                             `json:"macsecAlgorithm,omitempty"`
-	MacsecFallbackKeyString                    string                             `json:"macsecFallbackKeyString,omitempty"`
-	MacsecFallbackAlgorithm                    string                             `json:"macsecFallbackAlgorithm,omitempty"`
-	MacsecReportTimer                          *int64                             `json:"macsecReportTimer,omitempty"`
-	OverlayMode                                string                             `json:"overlayMode,omitempty"`
-	PrivateVlan                                *bool                              `json:"privateVlan,omitempty"`
-	DefaultPrivateVlanSecondaryNetworkTemplate string                             `json:"defaultPrivateVlanSecondaryNetworkTemplate,omitempty"`
-	PowerRedundancyMode                        string                             `json:"powerRedundancyMode,omitempty"`
-	CoppPolicy                                 string                             `json:"coppPolicy,omitempty"`
-	NveHoldDownTimer                           *int64                             `json:"nveHoldDownTimer,omitempty"`
-	Cdp                                        *bool                              `json:"cdp,omitempty"`
-	NextGenerationOam                          *bool                              `json:"nextGenerationOAM,omitempty"`
-	NgoamSouthBoundLoopDetect                  *bool                              `json:"ngoamSouthBoundLoopDetect,omitempty"`
-	NgoamSouthBoundLoopDetectProbeInterval     *int64                             `json:"ngoamSouthBoundLoopDetectProbeInterval,omitempty"`
-	NgoamSouthBoundLoopDetectRecoveryInterval  *int64                             `json:"ngoamSouthBoundLoopDetectRecoveryInterval,omitempty"`
-	StrictConfigComplianceMode                 *bool                              `json:"strictConfigComplianceMode,omitempty"`
-	AdvancedSshOption                          *bool                              `json:"advancedSshOption,omitempty"`
-	Ptp                                        *bool                              `json:"ptp,omitempty"`
-	PtpLoopbackId                              *int64                             `json:"ptpLoopbackId,omitempty"`
-	PtpDomainId                                *int64                             `json:"ptpDomainId,omitempty"`
-	DefaultQueuingPolicy                       *bool                              `json:"defaultQueuingPolicy,omitempty"`
-	DefaultQueuingPolicyCloudscale             string                             `json:"defaultQueuingPolicyCloudscale,omitempty"`
-	DefaultQueuingPolicyRSeries                string                             `json:"defaultQueuingPolicyRSeries,omitempty"`
-	DefaultQueuingPolicyOther                  string                             `json:"defaultQueuingPolicyOther,omitempty"`
-	AimlQos                                    *bool                              `json:"aimlQos,omitempty"`
-	AimlQosPolicy                              string                             `json:"aimlQosPolicy,omitempty"`
-	PriorityFlowControlWatchInterval           *int64                             `json:"priorityFlowControlWatchInterval,omitempty"`
-	StaticUnderlayIpAllocation                 *bool                              `json:"staticUnderlayIpAllocation,omitempty"`
-	BgpLoopbackIpv6Range                       string                             `json:"bgpLoopbackIpv6Range,omitempty"`
-	NveLoopbackIpv6Range                       string                             `json:"nveLoopbackIpv6Range,omitempty"`
-	Ipv6AnycastRendezvousPointIpRange          string                             `json:"ipv6AnycastRendezvousPointIpRange,omitempty"`
-	ExtraConfigAaa                             string                             `json:"extraConfigAaa,omitempty"`
-	Aaa                                        *bool                              `json:"aaa,omitempty"`
-	Ipv6LinkLocal                              *bool                              `json:"ipv6LinkLocal,omitempty"`
-	FabricInterfaceType                        string                             `json:"fabricInterfaceType,omitempty"`
-	Ipv6SubnetTargetMask                       *int64                             `json:"ipv6SubnetTargetMask,omitempty"`
-	LinkStateRoutingProtocol                   string                             `json:"linkStateRoutingProtocol,omitempty"`
-	RouteReflectorCount                        *int64                             `json:"routeReflectorCount,omitempty"`
-	VpcTorDelayRestoreTimer                    *int64                             `json:"vpcTorDelayRestoreTimer,omitempty"`
-	LeafToRIdRange                             *bool                              `json:"leafToRIdRange,omitempty"`
-	LeafTorVpcPortChannelIdRange               string                             `json:"leafTorVpcPortChannelIdRange,omitempty"`
-	LinkStateRoutingTag                        string                             `json:"linkStateRoutingTag,omitempty"`
-	OspfAreaId                                 string                             `json:"ospfAreaId,omitempty"`
-	OspfAuthentication                         *bool                              `json:"ospfAuthentication,omitempty"`
-	OspfAuthenticationKeyId                    *int64                             `json:"ospfAuthenticationKeyId,omitempty"`
-	OspfAuthenticationKey                      string                             `json:"ospfAuthenticationKey,omitempty"`
-	IsisLevel                                  string                             `json:"isisLevel,omitempty"`
-	IsisAreaNumber                             string                             `json:"isisAreaNumber,omitempty"`
-	IsisPointToPoint                           *bool                              `json:"isisPointToPoint,omitempty"`
-	IsisAuthentication                         *bool                              `json:"isisAuthentication,omitempty"`
-	IsisAuthenticationKeychainName             string                             `json:"isisAuthenticationKeychainName,omitempty"`
-	IsisAuthenticationKeychainKeyId            *int64                             `json:"isisAuthenticationKeychainKeyId,omitempty"`
-	IsisAuthenticationKey                      string                             `json:"isisAuthenticationKey,omitempty"`
-	IsisOverload                               *bool                              `json:"isisOverload,omitempty"`
-	IsisOverloadElapseTime                     *int64                             `json:"isisOverloadElapseTime,omitempty"`
-	BfdOspf                                    *bool                              `json:"bfdOspf,omitempty"`
-	BfdIsis                                    *bool                              `json:"bfdIsis,omitempty"`
-	BfdPim                                     *bool                              `json:"bfdPim,omitempty"`
-	AutoBgpNeighborDescription                 *bool                              `json:"autoBgpNeighborDescription,omitempty"`
-	IbgpPeerTemplate                           string                             `json:"ibgpPeerTemplate,omitempty"`
-	LeafibgpPeerTemplate                       string                             `json:"leafibgpPeerTemplate,omitempty"`
-	SecurityGroupTag                           *bool                              `json:"securityGroupTag,omitempty"`
-	SecurityGroupTagPrefix                     string                             `json:"securityGroupTagPrefix,omitempty"`
-	SecurityGroupTagIdRange                    string                             `json:"securityGroupTagIdRange,omitempty"`
-	SecurityGroupTagPreprovision               *bool                              `json:"securityGroupTagPreprovision,omitempty"`
-	SecurityGroupStatus                        string                             `json:"securityGroupStatus,omitempty"`
-	VrfLiteMacsec                              *bool                              `json:"vrfLiteMacsec,omitempty"`
-	QuantumKeyDistribution                     *bool                              `json:"quantumKeyDistribution,omitempty"`
-	VrfLiteMacsecCipherSuite                   string                             `json:"vrfLiteMacsecCipherSuite,omitempty"`
-	VrfLiteMacsecKeyString                     string                             `json:"vrfLiteMacsecKeyString,omitempty"`
-	VrfLiteMacsecAlgorithm                     string                             `json:"vrfLiteMacsecAlgorithm,omitempty"`
-	VrfLiteMacsecFallbackKeyString             string                             `json:"vrfLiteMacsecFallbackKeyString,omitempty"`
-	VrfLiteMacsecFallbackAlgorithm             string                             `json:"vrfLiteMacsecFallbackAlgorithm,omitempty"`
-	QuantumKeyDistributionProfileName          string                             `json:"quantumKeyDistributionProfileName,omitempty"`
-	KeyManagementEntityServerIp                string                             `json:"keyManagementEntityServerIp,omitempty"`
-	KeyManagementEntityServerPort              *int64                             `json:"keyManagementEntityServerPort,omitempty"`
-	TrustpointLabel                            string                             `json:"trustpointLabel,omitempty"`
-	SkipCertificateVerification                *bool                              `json:"skipCertificateVerification,omitempty"`
-	HostInterfaceAdminState                    *bool                              `json:"hostInterfaceAdminState,omitempty"`
-	BrownfieldNetworkNameFormat                string                             `json:"brownfieldNetworkNameFormat,omitempty"`
-	BrownfieldSkipOverlayNetworkAttachments    *bool                              `json:"brownfieldSkipOverlayNetworkAttachments,omitempty"`
-	PolicyBasedRouting                         *bool                              `json:"policyBasedRouting,omitempty"`
-	PtpVlanId                                  *int64                             `json:"ptpVlanId,omitempty"`
-	MplsHandoff                                *bool                              `json:"mplsHandoff,omitempty"`
-	MplsLoopbackIdentifier                     *int64                             `json:"mplsLoopbackIdentifier,omitempty"`
-	MplsIsisAreaNumber                         string                             `json:"mplsIsisAreaNumber,omitempty"`
-	StpRootOption                              string                             `json:"stpRootOption,omitempty"`
-	StpVlanRange                               string                             `json:"stpVlanRange,omitempty"`
-	MstInstanceRange                           string                             `json:"mstInstanceRange,omitempty"`
-	StpBridgePriority                          *int64                             `json:"stpBridgePriority,omitempty"`
-	AllowVlanOnLeafTorPairing                  string                             `json:"allowVlanOnLeafTorPairing,omitempty"`
-	PreInterfaceConfigLeaf                     string                             `json:"preInterfaceConfigLeaf,omitempty"`
-	PreInterfaceConfigSpine                    string                             `json:"preInterfaceConfigSpine,omitempty"`
-	PreInterfaceConfigTor                      string                             `json:"preInterfaceConfigTor,omitempty"`
-	ExtraConfigLeaf                            string                             `json:"extraConfigLeaf,omitempty"`
-	ExtraConfigSpine                           string                             `json:"extraConfigSpine,omitempty"`
-	ExtraConfigTor                             string                             `json:"extraConfigTor,omitempty"`
-	ExtraConfigIntraFabricLinks                string                             `json:"extraConfigIntraFabricLinks,omitempty"`
-	MplsLoopbackIpRange                        string                             `json:"mplsLoopbackIpRange,omitempty"`
-	Ipv6SubnetRange                            string                             `json:"ipv6SubnetRange,omitempty"`
-	RouterIdRange                              string                             `json:"routerIdRange,omitempty"`
-	AutoSymmetricVrfLite                       *bool                              `json:"autoSymmetricVrfLite,omitempty"`
-	AutoVrfLiteDefaultVrf                      *bool                              `json:"autoVrfLiteDefaultVrf,omitempty"`
-	AutoSymmetricDefaultVrf                    *bool                              `json:"autoSymmetricDefaultVrf,omitempty"`
-	DefaultVrfRedistributionBgpRouteMap        string                             `json:"defaultVrfRedistributionBgpRouteMap,omitempty"`
-	IpServiceLevelAgreementIdRange             string                             `json:"ipServiceLevelAgreementIdRange,omitempty"`
-	ObjectTrackingNumberRange                  string                             `json:"objectTrackingNumberRange,omitempty"`
-	ServiceNetworkVlanRange                    string                             `json:"serviceNetworkVlanRange,omitempty"`
-	RouteMapSequenceNumberRange                string                             `json:"routeMapSequenceNumberRange,omitempty"`
-	InbandManagement                           *bool                              `json:"inbandManagement,omitempty"`
-	SeedSwitchCoreInterfaces                   string                             `json:"seedSwitchCoreInterfaces,omitempty"`
-	SpineSwitchCoreInterfaces                  string                             `json:"spineSwitchCoreInterfaces,omitempty"`
-	InbandDhcpServers                          string                             `json:"inbandDhcpServers,omitempty"`
-	UnNumberedBootstrapLbId                    *int64                             `json:"unNumberedBootstrapLbId,omitempty"`
-	UnNumberedDhcpStartAddress                 string                             `json:"unNumberedDhcpStartAddress,omitempty"`
-	UnNumberedDhcpEndAddress                   string                             `json:"unNumberedDhcpEndAddress,omitempty"`
-	DnsCollection                              []string                           `json:"dnsCollection,omitempty"`
-	DnsVrfCollection                           []string                           `json:"dnsVrfCollection,omitempty"`
-	NtpServerCollection                        []string                           `json:"ntpServerCollection,omitempty"`
-	NtpServerVrfCollection                     []string                           `json:"ntpServerVrfCollection,omitempty"`
-	SyslogServerCollection                     []string                           `json:"syslogServerCollection,omitempty"`
-	SyslogSeverityCollection                   []int64                            `json:"syslogSeverityCollection,omitempty"`
-	SyslogServerVrfCollection                  []string                           `json:"syslogServerVrfCollection,omitempty"`
-	NetflowSettings                            NDFCManagementNetflowSettingsValue `json:"netflowSettings,omitempty"`
-}
-
-type NDFCManagementNetflowSettingsValue struct {
-	Netflow                   *bool                               `json:"netflow,omitempty"`
-	NetflowExporterCollection NDFCNetflowExporterCollectionValues `json:"netflowExporterCollection,omitempty"`
-	NetflowRecordCollection   NDFCNetflowRecordCollectionValues   `json:"netflowRecordCollection,omitempty"`
-	NetflowMonitorCollection  NDFCNetflowMonitorCollectionValues  `json:"netflowMonitorCollection,omitempty"`
-	NetflowSamplerCollection  NDFCNetflowSamplerCollectionValues  `json:"netflowSamplerCollection,omitempty"`
-}
-
-type NDFCNetflowExporterCollectionValues []NDFCNetflowExporterCollectionValue
-
-type NDFCNetflowExporterCollectionValue struct {
-	ExporterName        string `json:"exporterName,omitempty"`
-	ExporterIp          string `json:"exporterIp,omitempty"`
-	Vrf                 string `json:"vrf,omitempty"`
-	SourceInterfaceName string `json:"sourceInterfaceName,omitempty"`
-	UdpPort             *int64 `json:"udpPort,omitempty"`
-}
-
-type NDFCNetflowRecordCollectionValues []NDFCNetflowRecordCollectionValue
-
-type NDFCNetflowRecordCollectionValue struct {
-	RecordName     string `json:"recordName,omitempty"`
-	RecordTemplate string `json:"recordTemplate,omitempty"`
-	Layer2Record   *bool  `json:"layer2Record,omitempty"`
-}
-
-type NDFCNetflowMonitorCollectionValues []NDFCNetflowMonitorCollectionValue
-
-type NDFCNetflowMonitorCollectionValue struct {
-	MonitorName       string `json:"monitorName,omitempty"`
-	MonitorRecordName string `json:"recordName,omitempty"`
-	Exporter1Name     string `json:"exporter1Name,omitempty"`
-	Exporter2Name     string `json:"exporter2Name,omitempty"`
-}
-
-type NDFCNetflowSamplerCollectionValues []NDFCNetflowSamplerCollectionValue
-
-type NDFCNetflowSamplerCollectionValue struct {
-	SamplerName  string `json:"samplerName,omitempty"`
-	NumSamples   *int64 `json:"numSamples,omitempty"`
-	SamplingRate *int64 `json:"samplingRate,omitempty"`
+type NDFCFeatureStatusValue struct {
+	ControllerStatus    string `json:"controller,omitempty"`
+	TelemetryStatus     string `json:"telemetry,omitempty"`
+	OrchestrationStatus string `json:"orchestration,omitempty"`
+	TrapForwarderStatus string `json:"trapForwarder,omitempty"`
 }
 
 type NDFCTelemetrySettingsValue struct {
@@ -469,7 +150,7 @@ type NDFCL3OutFlowRuleInterfaceCollectionValue struct {
 }
 
 type NDFCFlowCollectionTrafficAnalyticsRulesValue struct {
-	TrafficAnalyticsRulesEnabled string                   `json:"trafficAnalyticsRulesEnabled,omitempty"`
+	TrafficAnalyticsRulesEnabled *bool                    `json:"enabled,omitempty"`
 	InterfaceRules               NDFCInterfaceRulesValues `json:"interfaceRules,omitempty"`
 }
 
@@ -517,7 +198,7 @@ type NDFCTelemetrySettingsMicroburstValue struct {
 }
 
 type NDFCTelemetrySettingsAnalysisSettingsValue struct {
-	AnalysisSettingsIsEnabled *bool `json:"analysisSettingsIsEnabled,omitempty"`
+	AnalysisSettingsIsEnabled *bool `json:"isEnabled,omitempty"`
 }
 
 type NDFCTelemetrySettingsNasValue struct {
@@ -534,15 +215,342 @@ type NDFCTelemetrySettingsEnergyManagementValue struct {
 	Cost *float64 `json:"cost,omitempty"`
 }
 
-type NDFCFeatureStatusValue struct {
-	ControllerStatus    string `json:"controller,omitempty"`
-	TelemetryStatus     string `json:"telemetry,omitempty"`
-	OrchestrationStatus string `json:"orchestration,omitempty"`
-	TrapForwarderStatus string `json:"trapForwarder,omitempty"`
+type NDFCExternalStreamingSettingsValue struct {
+	Email      NDFCEmailValues                          `json:"email,omitempty"`
+	MessageBus NDFCMessageBusValues                     `json:"messageBus,omitempty"`
+	Syslog     NDFCExternalStreamingSettingsSyslogValue `json:"syslog,omitempty"`
+}
+
+type NDFCEmailValues []NDFCEmailValue
+
+type NDFCEmailValue struct {
+	Name                      string                      `json:"name,omitempty"`
+	ReceiverEmail             string                      `json:"receiverEmail,omitempty"`
+	Format                    string                      `json:"format,omitempty"`
+	StartDate                 string                      `json:"startDate,omitempty"`
+	CollectionFrequencyInDays *int64                      `json:"collectionFrequencyInDays,omitempty"`
+	OnlyIncludeActiveAlerts   *bool                       `json:"onlyIncludeActiveAlerts,omitempty"`
+	CollectionSettings        NDFCCollectionSettingsValue `json:"collectionSettings,omitempty"`
+}
+
+type NDFCCollectionSettingsValue struct {
+	CollectionType            string   `json:"collectionType,omitempty"`
+	Anomalies                 []string `json:"anomalies,omitempty"`
+	Advisories                []string `json:"advisories,omitempty"`
+	RiskAndConformanceReports []string `json:"riskAndConformanceReports,omitempty"`
+}
+
+type NDFCMessageBusValues []NDFCMessageBusValue
+
+type NDFCMessageBusValue struct {
+	Server             string                                `json:"server,omitempty"`
+	CollectionType     string                                `json:"collectionType,omitempty"`
+	CollectionSettings NDFCMessageBusCollectionSettingsValue `json:"collectionSettings,omitempty"`
+}
+
+type NDFCMessageBusCollectionSettingsValue struct {
+	CollectionSettingsCollectionType string   `json:"collectionType,omitempty"`
+	Anomalies                        []string `json:"anomalies,omitempty"`
+	Advisories                       []string `json:"advisories,omitempty"`
+	Statistics                       []string `json:"statistics,omitempty"`
+	Faults                           []string `json:"faults,omitempty"`
+	AuditLogs                        []string `json:"auditLogs,omitempty"`
+}
+
+type NDFCExternalStreamingSettingsSyslogValue struct {
+	SyslogServers      []string                          `json:"servers,omitempty"`
+	SyslogFacility     string                            `json:"facility,omitempty"`
+	CollectionSettings NDFCSyslogCollectionSettingsValue `json:"collectionSettings,omitempty"`
+}
+
+type NDFCSyslogCollectionSettingsValue struct {
+	SyslogAnomalies []string `json:"anomalies,omitempty"`
 }
 
 type NDFCMetaValue struct {
 	AllowedActions []string `json:"allowedActions,omitempty"`
+}
+
+type NDFCManagementValue struct {
+	FabricType                                 string                             `json:"type,omitempty"`
+	BgpAsn                                     string                             `json:"bgpAsn,omitempty"`
+	SuperSpineBgpAs                            string                             `json:"superSpineBgpAs,omitempty"`
+	LeafBgpAs                                  string                             `json:"leafBgpAs,omitempty"`
+	BorderBgpAs                                string                             `json:"borderBgpAs,omitempty"`
+	BgpAsMode                                  string                             `json:"bgpAsMode,omitempty"`
+	TargetSubnetMask                           *int64                             `json:"targetSubnetMask,omitempty"`
+	AnycastGatewayMac                          string                             `json:"anycastGatewayMac,omitempty"`
+	PerformanceMonitoring                      *bool                              `json:"performanceMonitoring,omitempty"`
+	ReplicationMode                            string                             `json:"replicationMode,omitempty"`
+	MulticastGroupSubnet                       string                             `json:"multicastGroupSubnet,omitempty"`
+	TenantRoutedMulticast                      *bool                              `json:"tenantRoutedMulticast,omitempty"`
+	RendezvousPointCount                       *int64                             `json:"rendezvousPointCount,omitempty"`
+	RendezvousPointLoopbackId                  *int64                             `json:"rendezvousPointLoopbackId,omitempty"`
+	VpcPeerLinkVlan                            string                             `json:"vpcPeerLinkVlan,omitempty"`
+	VpcPeerLinkEnableNativeVlan                *bool                              `json:"vpcPeerLinkEnableNativeVlan,omitempty"`
+	VpcPeerKeepAliveOption                     string                             `json:"vpcPeerKeepAliveOption,omitempty"`
+	VpcAutoRecoveryTimer                       *int64                             `json:"vpcAutoRecoveryTimer,omitempty"`
+	VpcDelayRestoreTimer                       *int64                             `json:"vpcDelayRestoreTimer,omitempty"`
+	VpcPeerLinkPortChannelId                   string                             `json:"vpcPeerLinkPortChannelId,omitempty"`
+	VpcIpv6NeighborDiscoverySync               *bool                              `json:"vpcIpv6NeighborDiscoverySync,omitempty"`
+	AdvertisePhysicalIp                        *bool                              `json:"advertisePhysicalIp,omitempty"`
+	VpcDomainIdRange                           string                             `json:"vpcDomainIdRange,omitempty"`
+	BgpLoopbackId                              *int64                             `json:"bgpLoopbackId,omitempty"`
+	NveLoopbackId                              *int64                             `json:"nveLoopbackId,omitempty"`
+	VrfTemplate                                string                             `json:"vrfTemplate,omitempty"`
+	NetworkTemplate                            string                             `json:"networkTemplate,omitempty"`
+	VrfExtensionTemplate                       string                             `json:"vrfExtensionTemplate,omitempty"`
+	NetworkExtensionTemplate                   string                             `json:"networkExtensionTemplate,omitempty"`
+	L3VniNoVlanDefaultOption                   *bool                              `json:"l3VniNoVlanDefaultOption,omitempty"`
+	SiteId                                     string                             `json:"siteId,omitempty"`
+	FabricMtu                                  *int64                             `json:"fabricMtu,omitempty"`
+	L2HostInterfaceMtu                         *int64                             `json:"l2HostInterfaceMtu,omitempty"`
+	TenantDhcp                                 *bool                              `json:"tenantDhcp,omitempty"`
+	Nxapi                                      *bool                              `json:"nxapi,omitempty"`
+	NxapiHttpsPort                             *int64                             `json:"nxapiHttpsPort,omitempty"`
+	NxapiHttp                                  *bool                              `json:"nxapiHttp,omitempty"`
+	NxapiHttpPort                              *int64                             `json:"nxapiHttpPort,omitempty"`
+	SnmpTrap                                   *bool                              `json:"snmpTrap,omitempty"`
+	AnycastBorderGatewayAdvertisePhysicalIp    *bool                              `json:"anycastBorderGatewayAdvertisePhysicalIp,omitempty"`
+	GreenfieldDebugFlag                        string                             `json:"greenfieldDebugFlag,omitempty"`
+	TcamAllocation                             *bool                              `json:"tcamAllocation,omitempty"`
+	RealTimeInterfaceStatisticsCollection      *bool                              `json:"realTimeInterfaceStatisticsCollection,omitempty"`
+	InterfaceStatisticsLoadInterval            *int64                             `json:"interfaceStatisticsLoadInterval,omitempty"`
+	BgpLoopbackIpRange                         string                             `json:"bgpLoopbackIpRange,omitempty"`
+	NveLoopbackIpRange                         string                             `json:"nveLoopbackIpRange,omitempty"`
+	AnycastRendezvousPointIpRange              string                             `json:"anycastRendezvousPointIpRange,omitempty"`
+	IntraFabricSubnetRange                     string                             `json:"intraFabricSubnetRange,omitempty"`
+	L2VniRange                                 string                             `json:"l2VniRange,omitempty"`
+	L3VniRange                                 string                             `json:"l3VniRange,omitempty"`
+	NetworkVlanRange                           string                             `json:"networkVlanRange,omitempty"`
+	VrfVlanRange                               string                             `json:"vrfVlanRange,omitempty"`
+	SubInterfaceDot1qRange                     string                             `json:"subInterfaceDot1qRange,omitempty"`
+	VrfLiteAutoConfig                          string                             `json:"vrfLiteAutoConfig,omitempty"`
+	VrfLiteSubnetRange                         string                             `json:"vrfLiteSubnetRange,omitempty"`
+	VrfLiteSubnetTargetMask                    *int64                             `json:"vrfLiteSubnetTargetMask,omitempty"`
+	VrfLiteIpv6SubnetRange                     string                             `json:"vrfLiteIpv6SubnetRange,omitempty"`
+	VrfLiteIpv6SubnetTargetMask                *int64                             `json:"vrfLiteIpv6SubnetTargetMask,omitempty"`
+	AutoUniqueVrfLiteIpPrefix                  *bool                              `json:"autoUniqueVrfLiteIpPrefix,omitempty"`
+	PerVrfLoopbackAutoProvision                *bool                              `json:"perVrfLoopbackAutoProvision,omitempty"`
+	PerVrfLoopbackIpRange                      string                             `json:"perVrfLoopbackIpRange,omitempty"`
+	PerVrfLoopbackAutoProvisionIpv6            *bool                              `json:"perVrfLoopbackAutoProvisionIpv6,omitempty"`
+	PerVrfLoopbackIpv6Range                    string                             `json:"perVrfLoopbackIpv6Range,omitempty"`
+	Banner                                     string                             `json:"banner,omitempty"`
+	Day0Bootstrap                              *bool                              `json:"day0Bootstrap,omitempty"`
+	LocalDhcpServer                            *bool                              `json:"localDhcpServer,omitempty"`
+	DhcpProtocolVersion                        string                             `json:"dhcpProtocolVersion,omitempty"`
+	DhcpStartAddress                           string                             `json:"dhcpStartAddress,omitempty"`
+	DhcpEndAddress                             string                             `json:"dhcpEndAddress,omitempty"`
+	ManagementGateway                          string                             `json:"managementGateway,omitempty"`
+	ManagementIpv4Prefix                       *int64                             `json:"managementIpv4Prefix,omitempty"`
+	ManagementIpv6Prefix                       *int64                             `json:"managementIpv6Prefix,omitempty"`
+	BootstrapMultiSubnet                       string                             `json:"bootstrapMultiSubnet,omitempty"`
+	ExtraConfigNxosBootstrap                   string                             `json:"extraConfigNxosBootstrap,omitempty"`
+	RealTimeBackup                             *bool                              `json:"realTimeBackup,omitempty"`
+	ScheduledBackup                            *bool                              `json:"scheduledBackup,omitempty"`
+	ScheduledBackupTime                        string                             `json:"scheduledBackupTime,omitempty"`
+	UnderlayIpv6                               *bool                              `json:"underlayIpv6,omitempty"`
+	Ipv6MulticastGroupSubnet                   string                             `json:"ipv6MulticastGroupSubnet,omitempty"`
+	TenantRoutedMulticastIpv6                  *bool                              `json:"tenantRoutedMulticastIpv6,omitempty"`
+	MvpnVrfRouteImportId                       *bool                              `json:"mvpnVrfRouteImportId,omitempty"`
+	MvpnVrfRouteImportIdRange                  string                             `json:"mvpnVrfRouteImportIdRange,omitempty"`
+	VrfRouteImportIdReallocation               *bool                              `json:"vrfRouteImportIdReallocation,omitempty"`
+	L3vniMulticastGroup                        string                             `json:"l3vniMulticastGroup,omitempty"`
+	L3VniIpv6MulticastGroup                    string                             `json:"l3VniIpv6MulticastGroup,omitempty"`
+	RendezvousPointMode                        string                             `json:"rendezvousPointMode,omitempty"`
+	AutoGenerateMulticastGroupAddress          *bool                              `json:"autoGenerateMulticastGroupAddress,omitempty"`
+	PhantomRendezvousPointLoopbackId1          *int64                             `json:"phantomRendezvousPointLoopbackId1,omitempty"`
+	PhantomRendezvousPointLoopbackId2          *int64                             `json:"phantomRendezvousPointLoopbackId2,omitempty"`
+	PhantomRendezvousPointLoopbackId3          *int64                             `json:"phantomRendezvousPointLoopbackId3,omitempty"`
+	PhantomRendezvousPointLoopbackId4          *int64                             `json:"phantomRendezvousPointLoopbackId4,omitempty"`
+	AdvertisePhysicalIpOnBorder                *bool                              `json:"advertisePhysicalIpOnBorder,omitempty"`
+	FabricVpcDomainId                          *bool                              `json:"fabricVpcDomainId,omitempty"`
+	SharedVpcDomainId                          *int64                             `json:"sharedVpcDomainId,omitempty"`
+	VpcLayer3PeerRouter                        *bool                              `json:"vpcLayer3PeerRouter,omitempty"`
+	FabricVpcQos                               *bool                              `json:"fabricVpcQos,omitempty"`
+	FabricVpcQosPolicyName                     string                             `json:"fabricVpcQosPolicyName,omitempty"`
+	AnycastLoopbackId                          *int64                             `json:"anycastLoopbackId,omitempty"`
+	BgpAuthentication                          *bool                              `json:"bgpAuthentication,omitempty"`
+	BgpAuthenticationKeyType                   string                             `json:"bgpAuthenticationKeyType,omitempty"`
+	BgpAuthenticationKey                       string                             `json:"bgpAuthenticationKey,omitempty"`
+	PimHelloAuthentication                     *bool                              `json:"pimHelloAuthentication,omitempty"`
+	PimHelloAuthenticationKey                  string                             `json:"pimHelloAuthenticationKey,omitempty"`
+	Bfd                                        *bool                              `json:"bfd,omitempty"`
+	BfdIbgp                                    *bool                              `json:"bfdIbgp,omitempty"`
+	BfdAuthentication                          *bool                              `json:"bfdAuthentication,omitempty"`
+	BfdAuthenticationKeyId                     *int64                             `json:"bfdAuthenticationKeyId,omitempty"`
+	BfdAuthenticationKey                       string                             `json:"bfdAuthenticationKey,omitempty"`
+	Macsec                                     *bool                              `json:"macsec,omitempty"`
+	MacsecCipherSuite                          string                             `json:"macsecCipherSuite,omitempty"`
+	MacsecKeyString                            string                             `json:"macsecKeyString,omitempty"`
+	MacsecAlgorithm                            string                             `json:"macsecAlgorithm,omitempty"`
+	MacsecFallbackKeyString                    string                             `json:"macsecFallbackKeyString,omitempty"`
+	MacsecFallbackAlgorithm                    string                             `json:"macsecFallbackAlgorithm,omitempty"`
+	MacsecReportTimer                          *int64                             `json:"macsecReportTimer,omitempty"`
+	OverlayMode                                string                             `json:"overlayMode,omitempty"`
+	PrivateVlan                                *bool                              `json:"privateVlan,omitempty"`
+	DefaultPrivateVlanSecondaryNetworkTemplate string                             `json:"defaultPrivateVlanSecondaryNetworkTemplate,omitempty"`
+	PowerRedundancyMode                        string                             `json:"powerRedundancyMode,omitempty"`
+	CoppPolicy                                 string                             `json:"coppPolicy,omitempty"`
+	NveHoldDownTimer                           *int64                             `json:"nveHoldDownTimer,omitempty"`
+	Cdp                                        *bool                              `json:"cdp,omitempty"`
+	NextGenerationOam                          *bool                              `json:"nextGenerationOAM,omitempty"`
+	NgoamSouthBoundLoopDetect                  *bool                              `json:"ngoamSouthBoundLoopDetect,omitempty"`
+	NgoamSouthBoundLoopDetectProbeInterval     *int64                             `json:"ngoamSouthBoundLoopDetectProbeInterval,omitempty"`
+	NgoamSouthBoundLoopDetectRecoveryInterval  *int64                             `json:"ngoamSouthBoundLoopDetectRecoveryInterval,omitempty"`
+	StrictConfigComplianceMode                 *bool                              `json:"strictConfigComplianceMode,omitempty"`
+	AdvancedSshOption                          *bool                              `json:"advancedSshOption,omitempty"`
+	Ptp                                        *bool                              `json:"ptp,omitempty"`
+	PtpLoopbackId                              *int64                             `json:"ptpLoopbackId,omitempty"`
+	PtpDomainId                                *int64                             `json:"ptpDomainId,omitempty"`
+	DefaultQueuingPolicy                       *bool                              `json:"defaultQueuingPolicy,omitempty"`
+	DefaultQueuingPolicyCloudscale             string                             `json:"defaultQueuingPolicyCloudscale,omitempty"`
+	DefaultQueuingPolicyRSeries                string                             `json:"defaultQueuingPolicyRSeries,omitempty"`
+	DefaultQueuingPolicyOther                  string                             `json:"defaultQueuingPolicyOther,omitempty"`
+	AimlQos                                    *bool                              `json:"aimlQos,omitempty"`
+	AimlQosPolicy                              string                             `json:"aimlQosPolicy,omitempty"`
+	PriorityFlowControlWatchInterval           *int64                             `json:"priorityFlowControlWatchInterval,omitempty"`
+	StaticUnderlayIpAllocation                 *bool                              `json:"staticUnderlayIpAllocation,omitempty"`
+	BgpLoopbackIpv6Range                       string                             `json:"bgpLoopbackIpv6Range,omitempty"`
+	NveLoopbackIpv6Range                       string                             `json:"nveLoopbackIpv6Range,omitempty"`
+	Ipv6AnycastRendezvousPointIpRange          string                             `json:"ipv6AnycastRendezvousPointIpRange,omitempty"`
+	ExtraConfigAaa                             string                             `json:"extraConfigAaa,omitempty"`
+	Aaa                                        *bool                              `json:"aaa,omitempty"`
+	Ipv6LinkLocal                              *bool                              `json:"ipv6LinkLocal,omitempty"`
+	FabricInterfaceType                        string                             `json:"fabricInterfaceType,omitempty"`
+	Ipv6SubnetTargetMask                       *int64                             `json:"ipv6SubnetTargetMask,omitempty"`
+	LinkStateRoutingProtocol                   string                             `json:"linkStateRoutingProtocol,omitempty"`
+	RouteReflectorCount                        *int64                             `json:"routeReflectorCount,omitempty"`
+	VpcTorDelayRestoreTimer                    *int64                             `json:"vpcTorDelayRestoreTimer,omitempty"`
+	LeafToRIdRange                             *bool                              `json:"leafTorIdRange,omitempty"`
+	LeafTorVpcPortChannelIdRange               string                             `json:"leafTorVpcPortChannelIdRange,omitempty"`
+	LinkStateRoutingTag                        string                             `json:"linkStateRoutingTag,omitempty"`
+	OspfAreaId                                 string                             `json:"ospfAreaId,omitempty"`
+	OspfAuthentication                         *bool                              `json:"ospfAuthentication,omitempty"`
+	OspfAuthenticationKeyId                    *int64                             `json:"ospfAuthenticationKeyId,omitempty"`
+	OspfAuthenticationKey                      string                             `json:"ospfAuthenticationKey,omitempty"`
+	IsisLevel                                  string                             `json:"isisLevel,omitempty"`
+	IsisAreaNumber                             string                             `json:"isisAreaNumber,omitempty"`
+	IsisPointToPoint                           *bool                              `json:"isisPointToPoint,omitempty"`
+	IsisAuthentication                         *bool                              `json:"isisAuthentication,omitempty"`
+	IsisAuthenticationKeychainName             string                             `json:"isisAuthenticationKeychainName,omitempty"`
+	IsisAuthenticationKeychainKeyId            *int64                             `json:"isisAuthenticationKeychainKeyId,omitempty"`
+	IsisAuthenticationKey                      string                             `json:"isisAuthenticationKey,omitempty"`
+	IsisOverload                               *bool                              `json:"isisOverload,omitempty"`
+	IsisOverloadElapseTime                     *int64                             `json:"isisOverloadElapseTime,omitempty"`
+	BfdOspf                                    *bool                              `json:"bfdOspf,omitempty"`
+	BfdIsis                                    *bool                              `json:"bfdIsis,omitempty"`
+	BfdPim                                     *bool                              `json:"bfdPim,omitempty"`
+	AutoBgpNeighborDescription                 *bool                              `json:"autoBgpNeighborDescription,omitempty"`
+	IbgpPeerTemplate                           string                             `json:"ibgpPeerTemplate,omitempty"`
+	LeafibgpPeerTemplate                       string                             `json:"leafibgpPeerTemplate,omitempty"`
+	SecurityGroupTag                           *bool                              `json:"securityGroupTag,omitempty"`
+	SecurityGroupTagPrefix                     string                             `json:"securityGroupTagPrefix,omitempty"`
+	SecurityGroupTagIdRange                    string                             `json:"securityGroupTagIdRange,omitempty"`
+	SecurityGroupTagPreprovision               *bool                              `json:"securityGroupTagPreprovision,omitempty"`
+	SecurityGroupStatus                        string                             `json:"securityGroupStatus,omitempty"`
+	VrfLiteMacsec                              *bool                              `json:"vrfLiteMacsec,omitempty"`
+	QuantumKeyDistribution                     *bool                              `json:"quantumKeyDistribution,omitempty"`
+	VrfLiteMacsecCipherSuite                   string                             `json:"vrfLiteMacsecCipherSuite,omitempty"`
+	VrfLiteMacsecKeyString                     string                             `json:"vrfLiteMacsecKeyString,omitempty"`
+	VrfLiteMacsecAlgorithm                     string                             `json:"vrfLiteMacsecAlgorithm,omitempty"`
+	VrfLiteMacsecFallbackKeyString             string                             `json:"vrfLiteMacsecFallbackKeyString,omitempty"`
+	VrfLiteMacsecFallbackAlgorithm             string                             `json:"vrfLiteMacsecFallbackAlgorithm,omitempty"`
+	QuantumKeyDistributionProfileName          string                             `json:"quantumKeyDistributionProfileName,omitempty"`
+	KeyManagementEntityServerIp                string                             `json:"keyManagementEntityServerIp,omitempty"`
+	KeyManagementEntityServerPort              *int64                             `json:"keyManagementEntityServerPort,omitempty"`
+	TrustpointLabel                            string                             `json:"trustpointLabel,omitempty"`
+	SkipCertificateVerification                *bool                              `json:"skipCertificateVerification,omitempty"`
+	HostInterfaceAdminState                    *bool                              `json:"hostInterfaceAdminState,omitempty"`
+	BrownfieldNetworkNameFormat                string                             `json:"brownfieldNetworkNameFormat,omitempty"`
+	BrownfieldSkipOverlayNetworkAttachments    *bool                              `json:"brownfieldSkipOverlayNetworkAttachments,omitempty"`
+	PolicyBasedRouting                         *bool                              `json:"policyBasedRouting,omitempty"`
+	PtpVlanId                                  *int64                             `json:"ptpVlanId,omitempty"`
+	MplsHandoff                                *bool                              `json:"mplsHandoff,omitempty"`
+	MplsLoopbackIdentifier                     *int64                             `json:"mplsLoopbackIdentifier,omitempty"`
+	MplsIsisAreaNumber                         string                             `json:"mplsIsisAreaNumber,omitempty"`
+	StpRootOption                              string                             `json:"stpRootOption,omitempty"`
+	StpVlanRange                               string                             `json:"stpVlanRange,omitempty"`
+	MstInstanceRange                           string                             `json:"mstInstanceRange,omitempty"`
+	StpBridgePriority                          *int64                             `json:"stpBridgePriority,omitempty"`
+	AllowVlanOnLeafTorPairing                  string                             `json:"allowVlanOnLeafTorPairing,omitempty"`
+	PreInterfaceConfigLeaf                     string                             `json:"preInterfaceConfigLeaf,omitempty"`
+	PreInterfaceConfigSpine                    string                             `json:"preInterfaceConfigSpine,omitempty"`
+	PreInterfaceConfigTor                      string                             `json:"preInterfaceConfigTor,omitempty"`
+	ExtraConfigLeaf                            string                             `json:"extraConfigLeaf,omitempty"`
+	ExtraConfigSpine                           string                             `json:"extraConfigSpine,omitempty"`
+	ExtraConfigTor                             string                             `json:"extraConfigTor,omitempty"`
+	ExtraConfigIntraFabricLinks                string                             `json:"extraConfigIntraFabricLinks,omitempty"`
+	MplsLoopbackIpRange                        string                             `json:"mplsLoopbackIpRange,omitempty"`
+	Ipv6SubnetRange                            string                             `json:"ipv6SubnetRange,omitempty"`
+	RouterIdRange                              string                             `json:"routerIdRange,omitempty"`
+	AutoSymmetricVrfLite                       *bool                              `json:"autoSymmetricVrfLite,omitempty"`
+	AutoVrfLiteDefaultVrf                      *bool                              `json:"autoVrfLiteDefaultVrf,omitempty"`
+	AutoSymmetricDefaultVrf                    *bool                              `json:"autoSymmetricDefaultVrf,omitempty"`
+	DefaultVrfRedistributionBgpRouteMap        string                             `json:"defaultVrfRedistributionBgpRouteMap,omitempty"`
+	IpServiceLevelAgreementIdRange             string                             `json:"ipServiceLevelAgreementIdRange,omitempty"`
+	ObjectTrackingNumberRange                  string                             `json:"objectTrackingNumberRange,omitempty"`
+	ServiceNetworkVlanRange                    string                             `json:"serviceNetworkVlanRange,omitempty"`
+	RouteMapSequenceNumberRange                string                             `json:"routeMapSequenceNumberRange,omitempty"`
+	InbandManagement                           *bool                              `json:"inbandManagement,omitempty"`
+	SeedSwitchCoreInterfaces                   string                             `json:"seedSwitchCoreInterfaces,omitempty"`
+	SpineSwitchCoreInterfaces                  string                             `json:"spineSwitchCoreInterfaces,omitempty"`
+	InbandDhcpServers                          string                             `json:"inbandDhcpServers,omitempty"`
+	UnNumberedBootstrapLbId                    *int64                             `json:"unNumberedBootstrapLbId,omitempty"`
+	UnNumberedDhcpStartAddress                 string                             `json:"unNumberedDhcpStartAddress,omitempty"`
+	UnNumberedDhcpEndAddress                   string                             `json:"unNumberedDhcpEndAddress,omitempty"`
+	HeartbeatInterval                          *int64                             `json:"heartbeatInterval,omitempty"`
+	DnsCollection                              []string                           `json:"dnsCollection,omitempty"`
+	DnsVrfCollection                           []string                           `json:"dnsVrfCollection,omitempty"`
+	NtpServerCollection                        []string                           `json:"ntpServerCollection,omitempty"`
+	NtpServerVrfCollection                     []string                           `json:"ntpServerVrfCollection,omitempty"`
+	SyslogServerCollection                     []string                           `json:"syslogServerCollection,omitempty"`
+	SyslogSeverityCollection                   []int64                            `json:"syslogSeverityCollection,omitempty"`
+	SyslogServerVrfCollection                  []string                           `json:"syslogServerVrfCollection,omitempty"`
+	NetflowSettings                            NDFCManagementNetflowSettingsValue `json:"netflowSettings,omitempty"`
+}
+
+type NDFCManagementNetflowSettingsValue struct {
+	NetflowEnable             *bool                               `json:"netflow,omitempty"`
+	NetflowExporterCollection NDFCNetflowExporterCollectionValues `json:"netflowExporterCollection,omitempty"`
+	NetflowRecordCollection   NDFCNetflowRecordCollectionValues   `json:"netflowRecordCollection,omitempty"`
+	NetflowMonitorCollection  NDFCNetflowMonitorCollectionValues  `json:"netflowMonitorCollection,omitempty"`
+	NetflowSamplerCollection  NDFCNetflowSamplerCollectionValues  `json:"netflowSamplerCollection,omitempty"`
+}
+
+type NDFCNetflowExporterCollectionValues []NDFCNetflowExporterCollectionValue
+
+type NDFCNetflowExporterCollectionValue struct {
+	ExporterName        string `json:"exporterName,omitempty"`
+	ExporterIp          string `json:"exporterIp,omitempty"`
+	Vrf                 string `json:"vrf,omitempty"`
+	SourceInterfaceName string `json:"sourceInterfaceName,omitempty"`
+	UdpPort             *int64 `json:"udpPort,omitempty"`
+}
+
+type NDFCNetflowRecordCollectionValues []NDFCNetflowRecordCollectionValue
+
+type NDFCNetflowRecordCollectionValue struct {
+	RecordName     string `json:"recordName,omitempty"`
+	RecordTemplate string `json:"recordTemplate,omitempty"`
+	Layer2Record   string `json:"layer2Record,omitempty"`
+}
+
+type NDFCNetflowMonitorCollectionValues []NDFCNetflowMonitorCollectionValue
+
+type NDFCNetflowMonitorCollectionValue struct {
+	MonitorName       string `json:"monitorName,omitempty"`
+	MonitorRecordName string `json:"recordName,omitempty"`
+	Exporter1Name     string `json:"exporter1Name,omitempty"`
+	Exporter2Name     string `json:"exporter2Name,omitempty"`
+}
+
+type NDFCNetflowSamplerCollectionValues []NDFCNetflowSamplerCollectionValue
+
+type NDFCNetflowSamplerCollectionValue struct {
+	SamplerName  string `json:"samplerName,omitempty"`
+	NumSamples   *int64 `json:"numSamples,omitempty"`
+	SamplingRate *int64 `json:"samplingRate,omitempty"`
 }
 
 func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Diagnostics {
@@ -653,6 +661,34 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 
 	} else {
 		v.BgpAsn = types.StringNull()
+	}
+
+	if jsonData.Management.SuperSpineBgpAs != "" {
+		v.SuperSpineBgpAs = types.StringValue(jsonData.Management.SuperSpineBgpAs)
+
+	} else {
+		v.SuperSpineBgpAs = types.StringNull()
+	}
+
+	if jsonData.Management.LeafBgpAs != "" {
+		v.LeafBgpAs = types.StringValue(jsonData.Management.LeafBgpAs)
+
+	} else {
+		v.LeafBgpAs = types.StringNull()
+	}
+
+	if jsonData.Management.BorderBgpAs != "" {
+		v.BorderBgpAs = types.StringValue(jsonData.Management.BorderBgpAs)
+
+	} else {
+		v.BorderBgpAs = types.StringNull()
+	}
+
+	if jsonData.Management.BgpAsMode != "" {
+		v.BgpAsMode = types.StringValue(jsonData.Management.BgpAsMode)
+
+	} else {
+		v.BgpAsMode = types.StringNull()
 	}
 
 	if jsonData.Management.TargetSubnetMask != nil {
@@ -1020,6 +1056,20 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 		v.VrfLiteSubnetTargetMask = types.Int64Null()
 	}
 
+	if jsonData.Management.VrfLiteIpv6SubnetRange != "" {
+		v.VrfLiteIpv6SubnetRange = types.StringValue(jsonData.Management.VrfLiteIpv6SubnetRange)
+
+	} else {
+		v.VrfLiteIpv6SubnetRange = types.StringNull()
+	}
+
+	if jsonData.Management.VrfLiteIpv6SubnetTargetMask != nil {
+		v.VrfLiteIpv6SubnetTargetMask = types.Int64Value(*jsonData.Management.VrfLiteIpv6SubnetTargetMask)
+
+	} else {
+		v.VrfLiteIpv6SubnetTargetMask = types.Int64Null()
+	}
+
 	if jsonData.Management.AutoUniqueVrfLiteIpPrefix != nil {
 		v.AutoUniqueVrfLiteIpPrefix = types.BoolValue(*jsonData.Management.AutoUniqueVrfLiteIpPrefix)
 
@@ -1214,6 +1264,13 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 
 	} else {
 		v.RendezvousPointMode = types.StringNull()
+	}
+
+	if jsonData.Management.AutoGenerateMulticastGroupAddress != nil {
+		v.AutoGenerateMulticastGroupAddress = types.BoolValue(*jsonData.Management.AutoGenerateMulticastGroupAddress)
+
+	} else {
+		v.AutoGenerateMulticastGroupAddress = types.BoolNull()
 	}
 
 	if jsonData.Management.PhantomRendezvousPointLoopbackId1 != nil {
@@ -2196,6 +2253,13 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 		v.UnNumberedDhcpEndAddress = types.StringNull()
 	}
 
+	if jsonData.Management.HeartbeatInterval != nil {
+		v.HeartbeatInterval = types.Int64Value(*jsonData.Management.HeartbeatInterval)
+
+	} else {
+		v.HeartbeatInterval = types.Int64Null()
+	}
+
 	if len(jsonData.Management.DnsCollection) == 0 {
 		log.Printf("v.DnsCollection is empty")
 		v.DnsCollection = types.SetNull(types.StringType)
@@ -2301,11 +2365,11 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 		}
 	}
 
-	if jsonData.Management.NetflowSettings.Netflow != nil {
-		v.Netflow = types.BoolValue(*jsonData.Management.NetflowSettings.Netflow)
+	if jsonData.Management.NetflowSettings.NetflowEnable != nil {
+		v.NetflowEnable = types.BoolValue(*jsonData.Management.NetflowSettings.NetflowEnable)
 
 	} else {
-		v.Netflow = types.BoolNull()
+		v.NetflowEnable = types.BoolNull()
 	}
 
 	if len(jsonData.Management.NetflowSettings.NetflowExporterCollection) == 0 {
@@ -2462,9 +2526,8 @@ func (v *FabricVxlanModel) SetModelData(jsonData *NDFCFabricVxlanModel) diag.Dia
 			return err
 		}
 	}
-	if jsonData.TelemetrySettings.FlowCollection.TrafficAnalyticsRules.TrafficAnalyticsRulesEnabled != "" {
-		x, _ := strconv.ParseBool(jsonData.TelemetrySettings.FlowCollection.TrafficAnalyticsRules.TrafficAnalyticsRulesEnabled)
-		v.TrafficAnalyticsRulesEnabled = types.BoolValue(x)
+	if jsonData.TelemetrySettings.FlowCollection.TrafficAnalyticsRules.TrafficAnalyticsRulesEnabled != nil {
+		v.TrafficAnalyticsRulesEnabled = types.BoolValue(*jsonData.TelemetrySettings.FlowCollection.TrafficAnalyticsRules.TrafficAnalyticsRulesEnabled)
 
 	} else {
 		v.TrafficAnalyticsRulesEnabled = types.BoolNull()
@@ -2726,9 +2789,9 @@ func (v *NetflowRecordCollectionValue) SetValue(jsonData *NDFCNetflowRecordColle
 		v.RecordTemplate = types.StringNull()
 	}
 
-	if jsonData.Layer2Record != nil {
-		v.Layer2Record = types.BoolValue(*jsonData.Layer2Record)
-
+	if jsonData.Layer2Record != "" {
+		x, _ := strconv.ParseBool(jsonData.Layer2Record)
+		v.Layer2Record = types.BoolValue(x)
 	} else {
 		v.Layer2Record = types.BoolNull()
 	}
@@ -3701,6 +3764,30 @@ func (v FabricVxlanModel) GetModelData() *NDFCFabricVxlanModel {
 		data.Management.BgpAsn = ""
 	}
 
+	if !v.SuperSpineBgpAs.IsNull() && !v.SuperSpineBgpAs.IsUnknown() {
+		data.Management.SuperSpineBgpAs = v.SuperSpineBgpAs.ValueString()
+	} else {
+		data.Management.SuperSpineBgpAs = ""
+	}
+
+	if !v.LeafBgpAs.IsNull() && !v.LeafBgpAs.IsUnknown() {
+		data.Management.LeafBgpAs = v.LeafBgpAs.ValueString()
+	} else {
+		data.Management.LeafBgpAs = ""
+	}
+
+	if !v.BorderBgpAs.IsNull() && !v.BorderBgpAs.IsUnknown() {
+		data.Management.BorderBgpAs = v.BorderBgpAs.ValueString()
+	} else {
+		data.Management.BorderBgpAs = ""
+	}
+
+	if !v.BgpAsMode.IsNull() && !v.BgpAsMode.IsUnknown() {
+		data.Management.BgpAsMode = v.BgpAsMode.ValueString()
+	} else {
+		data.Management.BgpAsMode = ""
+	}
+
 	if !v.TargetSubnetMask.IsNull() && !v.TargetSubnetMask.IsUnknown() {
 		data.Management.TargetSubnetMask = new(int64)
 		*data.Management.TargetSubnetMask = v.TargetSubnetMask.ValueInt64()
@@ -4052,6 +4139,20 @@ func (v FabricVxlanModel) GetModelData() *NDFCFabricVxlanModel {
 		data.Management.VrfLiteSubnetTargetMask = nil
 	}
 
+	if !v.VrfLiteIpv6SubnetRange.IsNull() && !v.VrfLiteIpv6SubnetRange.IsUnknown() {
+		data.Management.VrfLiteIpv6SubnetRange = v.VrfLiteIpv6SubnetRange.ValueString()
+	} else {
+		data.Management.VrfLiteIpv6SubnetRange = ""
+	}
+
+	if !v.VrfLiteIpv6SubnetTargetMask.IsNull() && !v.VrfLiteIpv6SubnetTargetMask.IsUnknown() {
+		data.Management.VrfLiteIpv6SubnetTargetMask = new(int64)
+		*data.Management.VrfLiteIpv6SubnetTargetMask = v.VrfLiteIpv6SubnetTargetMask.ValueInt64()
+
+	} else {
+		data.Management.VrfLiteIpv6SubnetTargetMask = nil
+	}
+
 	if !v.AutoUniqueVrfLiteIpPrefix.IsNull() && !v.AutoUniqueVrfLiteIpPrefix.IsUnknown() {
 		data.Management.AutoUniqueVrfLiteIpPrefix = new(bool)
 		*data.Management.AutoUniqueVrfLiteIpPrefix = v.AutoUniqueVrfLiteIpPrefix.ValueBool()
@@ -4233,6 +4334,13 @@ func (v FabricVxlanModel) GetModelData() *NDFCFabricVxlanModel {
 		data.Management.RendezvousPointMode = v.RendezvousPointMode.ValueString()
 	} else {
 		data.Management.RendezvousPointMode = ""
+	}
+
+	if !v.AutoGenerateMulticastGroupAddress.IsNull() && !v.AutoGenerateMulticastGroupAddress.IsUnknown() {
+		data.Management.AutoGenerateMulticastGroupAddress = new(bool)
+		*data.Management.AutoGenerateMulticastGroupAddress = v.AutoGenerateMulticastGroupAddress.ValueBool()
+	} else {
+		data.Management.AutoGenerateMulticastGroupAddress = nil
 	}
 
 	if !v.PhantomRendezvousPointLoopbackId1.IsNull() && !v.PhantomRendezvousPointLoopbackId1.IsUnknown() {
@@ -5163,6 +5271,14 @@ func (v FabricVxlanModel) GetModelData() *NDFCFabricVxlanModel {
 		data.Management.UnNumberedDhcpEndAddress = ""
 	}
 
+	if !v.HeartbeatInterval.IsNull() && !v.HeartbeatInterval.IsUnknown() {
+		data.Management.HeartbeatInterval = new(int64)
+		*data.Management.HeartbeatInterval = v.HeartbeatInterval.ValueInt64()
+
+	} else {
+		data.Management.HeartbeatInterval = nil
+	}
+
 	if !v.DnsCollection.IsNull() && !v.DnsCollection.IsUnknown() {
 		listStringData := make([]string, len(v.DnsCollection.Elements()))
 		dg := v.DnsCollection.ElementsAs(context.Background(), &listStringData, false)
@@ -5239,11 +5355,11 @@ func (v FabricVxlanModel) GetModelData() *NDFCFabricVxlanModel {
 		copy(data.Management.SyslogServerVrfCollection, listStringData)
 	}
 
-	if !v.Netflow.IsNull() && !v.Netflow.IsUnknown() {
-		data.Management.NetflowSettings.Netflow = new(bool)
-		*data.Management.NetflowSettings.Netflow = v.Netflow.ValueBool()
+	if !v.NetflowEnable.IsNull() && !v.NetflowEnable.IsUnknown() {
+		data.Management.NetflowSettings.NetflowEnable = new(bool)
+		*data.Management.NetflowSettings.NetflowEnable = v.NetflowEnable.ValueBool()
 	} else {
-		data.Management.NetflowSettings.Netflow = nil
+		data.Management.NetflowSettings.NetflowEnable = nil
 	}
 
 	if !v.TrafficAnalytics.IsNull() && !v.TrafficAnalytics.IsUnknown() {
@@ -5274,9 +5390,10 @@ func (v FabricVxlanModel) GetModelData() *NDFCFabricVxlanModel {
 	}
 
 	if !v.TrafficAnalyticsRulesEnabled.IsNull() && !v.TrafficAnalyticsRulesEnabled.IsUnknown() {
-		data.TelemetrySettings.FlowCollection.TrafficAnalyticsRules.TrafficAnalyticsRulesEnabled = strconv.FormatBool(v.TrafficAnalyticsRulesEnabled.ValueBool())
+		data.TelemetrySettings.FlowCollection.TrafficAnalyticsRules.TrafficAnalyticsRulesEnabled = new(bool)
+		*data.TelemetrySettings.FlowCollection.TrafficAnalyticsRules.TrafficAnalyticsRulesEnabled = v.TrafficAnalyticsRulesEnabled.ValueBool()
 	} else {
-		data.TelemetrySettings.FlowCollection.TrafficAnalyticsRules.TrafficAnalyticsRulesEnabled = ""
+		data.TelemetrySettings.FlowCollection.TrafficAnalyticsRules.TrafficAnalyticsRulesEnabled = nil
 	}
 
 	if !v.TrafficAnalyticsMode.IsNull() && !v.TrafficAnalyticsMode.IsUnknown() {
@@ -5488,10 +5605,9 @@ func (v FabricVxlanModel) GetModelData() *NDFCFabricVxlanModel {
 
 			if !ele1.Layer2Record.IsNull() && !ele1.Layer2Record.IsUnknown() {
 
-				data.Management.NetflowSettings.NetflowRecordCollection[i1].Layer2Record = new(bool)
-				*data.Management.NetflowSettings.NetflowRecordCollection[i1].Layer2Record = ele1.Layer2Record.ValueBool()
+				data.Management.NetflowSettings.NetflowRecordCollection[i1].Layer2Record = strconv.FormatBool(ele1.Layer2Record.ValueBool())
 			} else {
-				data.Management.NetflowSettings.NetflowRecordCollection[i1].Layer2Record = nil
+				data.Management.NetflowSettings.NetflowRecordCollection[i1].Layer2Record = ""
 			}
 
 		} /* for loop */

@@ -80,7 +80,7 @@ func (m *NexusDashboardManage) RscGetFabric(ctx context.Context, dg *diag.Diagno
 		return
 	}
 	log.Printf("Location = %v %v", *outData.Location.Latitude, *outData.Location.Longitude)
-	log.Printf("Netflow = %v", *outData.Management.NetflowSettings.Netflow)
+	log.Printf("Netflow = %v", *outData.Management.NetflowSettings.NetflowEnable)
 	in.SetModelData(&outData)
 	log.Printf("Location from model=%v,%v", in.Location.Latitude.ValueFloat64(), in.Location.Longitude.ValueFloat64())
 }
