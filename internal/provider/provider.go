@@ -5,8 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
-	"terraform-provider-nd/internal/provider/manage"
-	"terraform-provider-nd/internal/provider/schema/provider/provider_nd"
+	"terraform-provider-nd/internal/manage"
 	"time"
 
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -31,16 +30,7 @@ type NexusDashboardProvider struct {
 	version string
 }
 
-type NDClient struct {
-	URL       string
-	Username  string
-	Password  string
-	Domain    string
-	Insecure  bool
-	Timeout   time.Duration
-	ApiClient *nd.Client
-	NDModules map[string]interface{}
-}
+// NDClient is now defined in client.go
 
 // New returns a function that initializes and returns a new NexusDashboardProvider.
 func New(version string) func() provider.Provider {
@@ -59,7 +49,7 @@ func (p *NexusDashboardProvider) Metadata(_ context.Context, _ provider.Metadata
 
 // Schema defines the provider-level schema for configuration data.
 func (p *NexusDashboardProvider) Schema(ctx context.Context, _ provider.SchemaRequest, resp *provider.SchemaResponse) {
-	resp.Schema = provider_nd.NdProviderSchema(ctx)
+	resp.Schema = NdProviderSchema(ctx)
 }
 
 // Configure prepares a Nexus Dashboard API client for data sources and resources.
@@ -67,7 +57,7 @@ func (p *NexusDashboardProvider) Configure(ctx context.Context, req provider.Con
 	tflog.Info(ctx, "Configuring Nexus Dashboard client")
 
 	// Retrieve provider data from configuration
-	var config provider_nd.NdModel
+	var config NdModel
 	diags := req.Config.Get(ctx, &config)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -200,10 +190,11 @@ func (p *NexusDashboardProvider) Configure(ctx context.Context, req provider.Con
 
 	ndClient.ApiClient = &client
 	ndClient.NDModules = make(map[string]interface{})
-	// Fill the module specific objects
-	// modules here are manage, onemanage etc
-	ndClient.NDModules["manage"] = manage.NewManage(&client)
-	//ndClient.NDModules["onemanage"] = onemanage.NewOnemanage(&client)
+
+	// Register module-specific clients
+	// Each team adds one line here for their module
+	ndClient.NDModules[manage.ModuleKey] = manage.NewManage(&client)
+	// ndClient.NDModules[onemanage.ModuleKey] = onemanage.NewClient(&client)
 
 	// Make the Nexus Dashboard client available during DataSource and Resource
 	// type Configure methods.
@@ -215,14 +206,14 @@ func (p *NexusDashboardProvider) Configure(ctx context.Context, req provider.Con
 }
 
 // DataSources defines the data sources implemented in the provider.
-
 func (p *NexusDashboardProvider) DataSources(_ context.Context) []func() datasource.DataSource {
 	dataSources := []func() datasource.DataSource{}
-	// Get all manage data sources
-	dataSources = append(dataSources, GetManageDataSources()...)
 
-	// Add other data sources eg. onemanage etc
-	//dataSources = append(dataSources, onemanage.GetOnemanageDataSources()...)
+	// Get all manage data sources
+	dataSources = append(dataSources, manage.GetDataSources()...)
+
+	// Add other modules here (each team adds one line):
+	// dataSources = append(dataSources, onemanage.GetDataSources()...)
 
 	return dataSources
 }
@@ -230,18 +221,12 @@ func (p *NexusDashboardProvider) DataSources(_ context.Context) []func() datasou
 // Resources defines the resources implemented in the provider.
 func (p *NexusDashboardProvider) Resources(_ context.Context) []func() resource.Resource {
 	resources := []func() resource.Resource{}
-	// Get all manage resources
-	resources = append(resources, GetManageResources()...)
 
-	// Add other resources eg. onemanage etc
-	//resources = append(resources, onemanage.GetOnemanageResources()...)
+	// Get all manage resources
+	resources = append(resources, manage.GetResources()...)
+
+	// Add other modules here (each team adds one line):
+	// resources = append(resources, onemanage.GetResources()...)
 
 	return resources
-	/*
-		return []func() resource.Resource {
-			,
-			// Add resources here
-			// NewFabricVxlanResource, // Will be added when implementation is ready
-		}
-	*/
 }

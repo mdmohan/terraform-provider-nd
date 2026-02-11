@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"terraform-provider-nd/internal/provider/manage/api"
-	"terraform-provider-nd/internal/provider/schema/resources/resource_fabric_vxlan"
+	"terraform-provider-nd/internal/manage/api"
+	"terraform-provider-nd/internal/manage/resources/resource_fabric_vxlan"
 	"time"
 
 	"github.com/hashicorp/terraform-plugin-framework/diag"

@@ -41,7 +41,7 @@ type FabricAPI struct {
 func NewFabricAPI(lock *sync.Mutex, client *nd.Client) *FabricAPI {
 	papi := new(FabricAPI)
 	papi.mutex = lock
-	papi.client = client
+	papi.Client = client
 	papi.NDManageAPI = papi
 	return papi
 }
