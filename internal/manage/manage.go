@@ -1,10 +1,9 @@
 package manage
 
 import (
-	"github.com/netascode/go-nd"
+	nd "github.com/netascode/go-nd"
 )
 
-// ModuleKey is the key used to register the manage module in the provider.
 const ModuleKey = "manage"
 
 type NexusDashboardManage struct {

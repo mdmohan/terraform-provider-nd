@@ -3,11 +3,13 @@ package provider
 import (
 	"time"
 
+	"terraform-provider-nd/internal/registry"
+
 	nd "github.com/netascode/go-nd"
 )
 
-// NDClient is the main provider client that holds shared configuration
-// and module-specific clients.
+var _ registry.ClientProvider = (*NDClient)(nil)
+
 type NDClient struct {
 	URL       string
 	Username  string
@@ -19,8 +21,6 @@ type NDClient struct {
 	NDModules map[string]interface{}
 }
 
-// GetModule returns a module-specific client by name.
-// This implements the interface that module packages use to get their clients.
 func (c *NDClient) GetModule(name string) interface{} {
 	return c.NDModules[name]
 }

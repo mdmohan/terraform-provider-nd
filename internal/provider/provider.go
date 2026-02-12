@@ -8,6 +8,8 @@ import (
 	"terraform-provider-nd/internal/manage"
 	"time"
 
+	_ "terraform-provider-nd/internal/manage/resource_fabric_vxlan"
+
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
@@ -152,7 +154,6 @@ func (p *NexusDashboardProvider) Configure(ctx context.Context, req provider.Con
 	domain := config.Domain.ValueString()
 	insecure := config.Insecure.ValueBool()
 	timeout := time.Duration(config.Timeout.ValueInt64()) * time.Second
-
 	// Set up logging
 	ctx = tflog.SetField(ctx, "nd_url", url)
 	ctx = tflog.SetField(ctx, "nd_username", username)
@@ -163,17 +164,9 @@ func (p *NexusDashboardProvider) Configure(ctx context.Context, req provider.Con
 
 	tflog.Debug(ctx, "Creating Nexus Dashboard client")
 
-	ndClient := new(NDClient)
-	ndClient.URL = url
-	ndClient.Username = username
-	ndClient.Password = password
-	ndClient.Domain = domain
-	ndClient.Insecure = insecure
-	ndClient.Timeout = timeout
-
 	basePath := "/api/v1"
 
-	// Create the client
+	// Create the shared API client
 	client, err := nd.NewClient(url, basePath, username, password,
 		domain, insecure, nd.MaxRetries(500),
 		nd.RequestTimeout(time.Duration(timeout)))
@@ -188,17 +181,25 @@ func (p *NexusDashboardProvider) Configure(ctx context.Context, req provider.Con
 		return
 	}
 
-	ndClient.ApiClient = &client
-	ndClient.NDModules = make(map[string]interface{})
+	ndClient := &NDClient{
+		URL:       url,
+		Username:  username,
+		Password:  password,
+		Domain:    domain,
+		Insecure:  insecure,
+		Timeout:   timeout,
+		ApiClient: &client,
+		NDModules: make(map[string]interface{}),
+	}
 
-	// Register module-specific clients
+	// Register module-specific clients (eager initialization)
 	// Each team adds one line here for their module
 	ndClient.NDModules[manage.ModuleKey] = manage.NewManage(&client)
+	
 	// ndClient.NDModules[onemanage.ModuleKey] = onemanage.NewClient(&client)
 
 	// Make the Nexus Dashboard client available during DataSource and Resource
 	// type Configure methods.
-
 	resp.DataSourceData = ndClient
 	resp.ResourceData = ndClient
 

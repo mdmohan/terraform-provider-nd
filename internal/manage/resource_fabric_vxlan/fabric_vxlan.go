@@ -1,10 +1,12 @@
-package resource_fabric_vxlan
+package fabric_vxlan
 
 import (
 	"context"
 	"fmt"
 
-	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"terraform-provider-nd/internal/manage"
+	"terraform-provider-nd/internal/registry"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
@@ -18,19 +20,6 @@ var (
 	_ resource.ResourceWithConfigure = &fabricVxlanResource{}
 )
 
-// ClientProvider is an interface that the main provider client implements.
-type ClientProvider interface {
-	GetModule(name string) interface{}
-}
-
-// ManageClient is the interface for manage module operations used by resources.
-type ManageClient interface {
-	RscCreateFabric(ctx context.Context, dg *diag.Diagnostics, input *FabricVxlanModel)
-	RscGetFabric(ctx context.Context, dg *diag.Diagnostics, in *FabricVxlanModel)
-	RscUpdateFabric(ctx context.Context, dg *diag.Diagnostics, fabricModel *FabricVxlanModel)
-	RscDeleteFabric(ctx context.Context, dg *diag.Diagnostics, fabricName string)
-}
-
 // NewFabricVxlanResource is a helper function to simplify the provider implementation.
 func NewFabricVxlanResource() resource.Resource {
 	return &fabricVxlanResource{}
@@ -38,7 +27,7 @@ func NewFabricVxlanResource() resource.Resource {
 
 // fabricVxlanResource is the resource implementation.
 type fabricVxlanResource struct {
-	manageClient ManageClient
+	manageClient *manage.NexusDashboardManage
 }
 
 // Metadata returns the resource type name.
@@ -58,11 +47,11 @@ func (r *fabricVxlanResource) Configure(_ context.Context, req resource.Configur
 		return
 	}
 
-	client, ok := req.ProviderData.(ClientProvider)
+	client, ok := req.ProviderData.(registry.ClientProvider)
 	if !ok {
 		resp.Diagnostics.AddError(
 			"Unexpected Resource Configure Type",
-			fmt.Sprintf("Expected ClientProvider, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+			fmt.Sprintf("Expected registry.ClientProvider, got: %T. Please report this issue to the provider developers.", req.ProviderData),
 		)
 		return
 	}
@@ -76,7 +65,7 @@ func (r *fabricVxlanResource) Configure(_ context.Context, req resource.Configur
 		return
 	}
 
-	r.manageClient = manageModule.(ManageClient)
+	r.manageClient = manageModule.(*manage.NexusDashboardManage)
 }
 
 // Create creates the resource and sets the initial Terraform state.
@@ -94,7 +83,7 @@ func (r *fabricVxlanResource) Create(ctx context.Context, req resource.CreateReq
 		"fabric_name": in.FabricName.ValueString(),
 	})
 
-	r.manageClient.RscCreateFabric(ctx, &resp.Diagnostics, &in)
+	r.rscCreateFabric(ctx, &resp.Diagnostics, &in)
 	if resp.Diagnostics.HasError() {
 		return
 	}
@@ -118,7 +107,7 @@ func (r *fabricVxlanResource) Read(ctx context.Context, req resource.ReadRequest
 		"fabric_name": state.FabricName.ValueString(),
 	})
 
-	r.manageClient.RscGetFabric(ctx, &resp.Diagnostics, &state)
+	r.rscGetFabric(ctx, &resp.Diagnostics, &state)
 	if resp.Diagnostics.HasError() {
 		return
 	}
@@ -142,7 +131,7 @@ func (r *fabricVxlanResource) Update(ctx context.Context, req resource.UpdateReq
 		"fabric_name": plan.FabricName.ValueString(),
 	})
 
-	r.manageClient.RscUpdateFabric(ctx, &resp.Diagnostics, &plan)
+	r.rscUpdateFabric(ctx, &resp.Diagnostics, &plan)
 	if resp.Diagnostics.HasError() {
 		return
 	}
@@ -165,5 +154,5 @@ func (r *fabricVxlanResource) Delete(ctx context.Context, req resource.DeleteReq
 		"fabric_name": state.FabricName.ValueString(),
 	})
 
-	r.manageClient.RscDeleteFabric(ctx, &resp.Diagnostics, state.FabricName.ValueString())
+	r.rscDeleteFabric(ctx, &resp.Diagnostics, state.FabricName.ValueString())
 }

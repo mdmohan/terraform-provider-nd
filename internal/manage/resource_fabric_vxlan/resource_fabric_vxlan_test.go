@@ -1,6 +1,6 @@
 // Code generated;  DO NOT EDIT.
 
-package resource_fabric_vxlan
+package fabric_vxlan
 
 import (
 	"encoding/json"

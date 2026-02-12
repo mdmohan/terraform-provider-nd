@@ -1,4 +1,4 @@
-package manage
+package fabric_vxlan
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"log"
 	"terraform-provider-nd/internal/manage/api"
-	"terraform-provider-nd/internal/manage/resources/resource_fabric_vxlan"
+
 	"time"
 
 	"github.com/hashicorp/terraform-plugin-framework/diag"
@@ -14,7 +14,7 @@ import (
 )
 
 // RscCreateFabric creates a fabric resource using the VXLAN fabric model
-func (m *NexusDashboardManage) RscCreateFabric(ctx context.Context, dg *diag.Diagnostics, input *resource_fabric_vxlan.FabricVxlanModel) {
+func (r *fabricVxlanResource) rscCreateFabric(ctx context.Context, dg *diag.Diagnostics, input *FabricVxlanModel) {
 	if input == nil {
 		dg.AddError(
 			"Invalid Input",
@@ -28,7 +28,7 @@ func (m *NexusDashboardManage) RscCreateFabric(ctx context.Context, dg *diag.Dia
 	log.Printf("Creating fabric %s with category %s", inData.FabricName, inData.Category)
 
 	// Create fabric API client
-	fabricAPI := api.NewFabricAPI(nil, m.ApiClient)
+	fabricAPI := api.NewFabricAPI(nil, r.manageClient.ApiClient)
 
 	// Convert model data to JSON
 	fabricPayload, err := json.Marshal(inData)
@@ -52,14 +52,14 @@ func (m *NexusDashboardManage) RscCreateFabric(ctx context.Context, dg *diag.Dia
 	// Read the created fabric
 	// ND BUG - license_tier is not set in the response. Try delaying the read
 	time.Sleep(2 * time.Second)
-	m.RscGetFabric(ctx, dg, input)
+	r.rscGetFabric(ctx, dg, input)
 
 }
 
 // GetFabric retrieves fabric information by name
-func (m *NexusDashboardManage) RscGetFabric(ctx context.Context, dg *diag.Diagnostics, in *resource_fabric_vxlan.FabricVxlanModel) {
+func (r *fabricVxlanResource) rscGetFabric(ctx context.Context, dg *diag.Diagnostics, in *FabricVxlanModel) {
 
-	fabricAPI := api.NewFabricAPI(nil, m.ApiClient)
+	fabricAPI := api.NewFabricAPI(nil, r.manageClient.ApiClient)
 	fabricAPI.FabricName = in.FabricName.ValueString()
 	respData, err := fabricAPI.Get()
 	if err != nil {
@@ -69,7 +69,7 @@ func (m *NexusDashboardManage) RscGetFabric(ctx context.Context, dg *diag.Diagno
 		)
 		return
 	}
-	var outData resource_fabric_vxlan.NDFCFabricVxlanModel
+	var outData NDFCFabricVxlanModel
 
 	err = json.Unmarshal(respData, &outData)
 	if err != nil {
@@ -86,11 +86,11 @@ func (m *NexusDashboardManage) RscGetFabric(ctx context.Context, dg *diag.Diagno
 }
 
 // UpdateFabricEVPN updates a fabric with the provided payload
-func (m *NexusDashboardManage) RscUpdateFabric(ctx context.Context, dg *diag.Diagnostics, fabricModel *resource_fabric_vxlan.FabricVxlanModel) {
+func (r *fabricVxlanResource) rscUpdateFabric(ctx context.Context, dg *diag.Diagnostics, fabricModel *FabricVxlanModel) {
 	inData := fabricModel.GetModelData()
 	log.Printf("Creating fabric %s with category %s", inData.FabricName, inData.Category)
 
-	fabricAPI := api.NewFabricAPI(nil, m.ApiClient)
+	fabricAPI := api.NewFabricAPI(nil, r.manageClient.ApiClient)
 	fabricAPI.FabricName = inData.FabricName
 
 	inDataBytes, err := json.Marshal(inData)
@@ -112,14 +112,14 @@ func (m *NexusDashboardManage) RscUpdateFabric(ctx context.Context, dg *diag.Dia
 		return
 	}
 	// Read the updated fabric
-	m.RscGetFabric(ctx, dg, fabricModel)
+	r.rscGetFabric(ctx, dg, fabricModel)
 	log.Printf("Updated fabric %s with category %s", inData.FabricName, inData.Category)
 
 }
 
 // DeleteFabricEVPN deletes a fabric by name
-func (m *NexusDashboardManage) RscDeleteFabric(ctx context.Context, dg *diag.Diagnostics, fabricName string) {
-	fabricAPI := api.NewFabricAPI(nil, m.ApiClient)
+func (r *fabricVxlanResource) rscDeleteFabric(ctx context.Context, dg *diag.Diagnostics, fabricName string) {
+	fabricAPI := api.NewFabricAPI(nil, r.manageClient.ApiClient)
 	fabricAPI.FabricName = fabricName
 	res, err := fabricAPI.Delete()
 	if err != nil {
