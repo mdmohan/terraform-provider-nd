@@ -1,3 +1,70 @@
+# Terraform Provider ND Development Guide
+
+## Code Structure Overview
+
+This Terraform provider manages Cisco Nexus Dashboard resources using a modular architecture that supports multiple ND services while avoiding cyclic imports.
+
+### Project Structure
+
+```
+terraform-provider-nd/
+├── main.go                    # Provider entry point
+├── go.mod                     # Go module definition
+├── docs/                      # Documentation
+└── internal/                  # Internal packages
+    ├── registry/              # Shared interfaces and registration
+    │   └── registry.go        # ClientProvider interface, resource registry
+    ├── provider/              # Core provider logic
+    │   ├── provider.go        # Main provider implementation
+    │   └── client.go          # NDClient with shared API client
+    └── manage/                # Manage module
+        ├── manage.go          # Module client implementation
+        ├── register.go        # Resource/datasource registry access
+        ├── api/               # Manage API
+        │   ├── api.go         # API client wrapper
+        │   └── fabric_api.go  # Fabric-specific API
+        └── resource_*/        # Individual resources
+            ├── init.go        # Auto-registration
+            └── *.go           # Resource implementation
+```
+
+### Key Architectural Patterns
+
+#### 1. **Registry Pattern**
+- Resources self-register via `init()` functions
+- No direct imports between modules
+- Clean separation of concerns
+
+#### 2. **Shared API Client**
+- Single `*nd.Client` instance shared across all modules
+- Connection pooling and rate limiting work correctly
+- Efficient resource usage
+
+#### 3. **Eager Initialization**
+- All modules created during provider configuration
+- Early error detection
+- Simple, predictable code path
+
+#### 4. **Interface-Based Communication**
+- `registry.ClientProvider` interface breaks cyclic dependencies
+- Resources access modules through interfaces, not concrete types
+
+### How It Works
+
+1. **Provider Startup**: Creates shared API client and all modules
+2. **Resource Registration**: Resources auto-register via `init()` functions
+3. **Resource Access**: Resources get module clients through `ClientProvider` interface
+4. **API Calls**: All modules use the same shared API client
+
+### Benefits
+
+- ✅ **No Cyclic Imports**: Registry pattern prevents import cycles
+- ✅ **Shared Resources**: Single API client for efficiency
+- ✅ **Modular Design**: Easy to add new modules
+- ✅ **Clean Architecture**: Clear separation of concerns
+
+---
+
 # Adding a New Module to Terraform Provider ND
 
 This guide explains how to add a new submodule (like `onemanage`, `insights`, etc.) to the Terraform Provider using the registry pattern with shared API client.
@@ -23,6 +90,9 @@ internal/
 ├── manage/             # Example module
 │   ├── manage.go       # Module client
 │   ├── register.go     # Returns registered resources
+│   ├── api/            # Manage API
+│   │   ├── api.go     # API client wrapper
+│   │   └── fabric_api.go # Fabric-specific API
 │   └── resource_*/     # Individual resources
 │       ├── init.go     # Auto-registration
 │       └── *.go        # Resource implementation
@@ -315,16 +385,6 @@ client, ok := req.ProviderData.(registry.ClientProvider)
 - [ ] Tested that resources work correctly
 - [ ] Verified shared client is used by all modules
 
-## Testing Shared Client
-
-Add logging to verify client sharing:
-
-```go
-func NewClient(client *nd.Client) *OneManageClient {
-	log.Printf("🔗 OneManage module got client: %p", client)
-	// ... rest of implementation
-}
-```
 
 Run Terraform and check that all modules log the **same pointer address**.
 
@@ -340,18 +400,4 @@ Run Terraform and check that all modules log the **same pointer address**.
 
 See `internal/manage/` for a complete working example of this pattern.
 
-## Module Comparison
 
-| Feature | Current Architecture | Factory Pattern |
-|---------|---------------------|-----------------|
-| Client Sharing | ✅ Shared | ✅ Shared |
-| Module Creation | Eager (startup) | Lazy (on first use) |
-| Complexity | Simple | More complex |
-| Error Handling | Early (provider config) | Late (resource config) |
-| Memory Usage | All modules loaded | Only used modules |
-
-The current architecture prioritizes **simplicity and shared resources** over lazy loading optimization.
-
-## Questions?
-
-For questions or issues, refer to the existing `internal/manage/` module as a reference implementation.

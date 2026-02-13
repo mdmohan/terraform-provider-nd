@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	"terraform-provider-nd/internal/manage"
+	"terraform-provider-nd/internal/registry"
 	"time"
 
 	_ "terraform-provider-nd/internal/manage/resource_fabric_vxlan"
@@ -195,7 +196,7 @@ func (p *NexusDashboardProvider) Configure(ctx context.Context, req provider.Con
 	// Register module-specific clients (eager initialization)
 	// Each team adds one line here for their module
 	ndClient.NDModules[manage.ModuleKey] = manage.NewManage(&client)
-	
+
 	// ndClient.NDModules[onemanage.ModuleKey] = onemanage.NewClient(&client)
 
 	// Make the Nexus Dashboard client available during DataSource and Resource
@@ -211,10 +212,7 @@ func (p *NexusDashboardProvider) DataSources(_ context.Context) []func() datasou
 	dataSources := []func() datasource.DataSource{}
 
 	// Get all manage data sources
-	dataSources = append(dataSources, manage.GetDataSources()...)
-
-	// Add other modules here (each team adds one line):
-	// dataSources = append(dataSources, onemanage.GetDataSources()...)
+	dataSources = append(dataSources, registry.GetAllDataSources()...)
 
 	return dataSources
 }
@@ -224,10 +222,7 @@ func (p *NexusDashboardProvider) Resources(_ context.Context) []func() resource.
 	resources := []func() resource.Resource{}
 
 	// Get all manage resources
-	resources = append(resources, manage.GetResources()...)
-
-	// Add other modules here (each team adds one line):
-	// resources = append(resources, onemanage.GetResources()...)
+	resources = append(resources, registry.GetAllResources()...)
 
 	return resources
 }
