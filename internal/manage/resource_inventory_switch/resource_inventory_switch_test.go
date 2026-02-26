@@ -1,6 +1,6 @@
 // Code generated;  DO NOT EDIT.
 
-package resource_fabric_vxlan
+package resource_inventory_switch
 
 import (
 	"encoding/json"
@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestResourceFabricVxlan(t *testing.T) {
+func TestResourceInventorySwitch(t *testing.T) {
 	type args struct {
 		rscType  string
 		rscName  string
@@ -21,11 +21,11 @@ func TestResourceFabricVxlan(t *testing.T) {
 		args args
 	}{
 		{
-			name: "Test_resource_fabric_vxlan",
+			name: "Test_resource_inventory_switch",
 			args: args{
 				rscType:  "resource",
-				rscName:  "fabric_vxlan",
-				dataFile: "/examples/ndfc_payloads/data_fabric_vxlan.json",
+				rscName:  "inventory_switch",
+				dataFile: "/examples/ndfc_payloads/data_inventory_switch.json",
 			},
 		},
 	}
@@ -39,8 +39,8 @@ func TestResourceFabricVxlan(t *testing.T) {
 				t.Errorf("File read failure %v", err)
 				return
 			}
-			modelData := NDFCFabricVxlanModel{}
-			v := FabricVxlanModel{}
+			modelData := NDFCInventorySwitchModel{}
+			v := InventorySwitchModel{}
 
 			err = json.Unmarshal(dataFromFile, &modelData)
 			if err != nil {

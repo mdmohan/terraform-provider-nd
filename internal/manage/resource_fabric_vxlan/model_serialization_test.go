@@ -6,7 +6,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-package fabric_vxlan
+package resource_fabric_vxlan
 
 import (
 	"encoding/json"

@@ -44,22 +44,22 @@ for filename in $FILES; do
     if [[ $filename == *"provider.json" ]]
     then
         echo "Generate provider code from $filename"
-        tfplugingen-framework generate provider --input ./out/$filename --output $OUTDIR/provider
+        tfplugingen-framework generate provider --input ./out/$filename --output internal --package provider
     elif [[ $filename == *"resource.json" ]]
     then
         echo "Generate Resource code from $filename"
-        tfplugingen-framework generate resources --input ./out/$filename --output $OUTDIR/resources
+        tfplugingen-framework generate resources --input ./out/$filename --output $OUTDIR
     elif [[ $filename == *"datasource.json" ]]
     then
         echo "Generate data-source code from $filename"
-        tfplugingen-framework generate data-sources --input ./out/$filename --output $OUTDIR/datasources
+        tfplugingen-framework generate data-sources --input ./out/$filename --output $OUTDIR 
     fi
 done
 
 #Stage 3: Generate additional encoder/decoder code for the generated definitions
 #Generated in the same output folder of Stage 2
 echo "Stage 3 - Generating additional codec code"
-$GOPATH/bin/generator code -in generator/defs -template generator/templates -out $OUTDIR -provider ${PROVIDER} $REPLACE
+$GOPATH/bin/generator code -in generator/defs -template generator/templates -out $OUTDIR -provider ${PROVIDER} --types internal/common $REPLACE
 
 # Add license headers to all generated files
 $GOPATH/bin/addlicense -c "Cisco Systems, Inc. and its affiliates" -l "mpl" -s  internal/provider/resources/**/*_gen.go

@@ -10,6 +10,7 @@ import (
 	"time"
 
 	_ "terraform-provider-nd/internal/manage/resource_fabric_vxlan"
+	_ "terraform-provider-nd/internal/manage/resource_inventory_switch"
 
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/path"

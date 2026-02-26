@@ -1,4 +1,4 @@
-package fabric_vxlan
+package resource_fabric_vxlan
 
 import (
 	"terraform-provider-nd/internal/registry"
